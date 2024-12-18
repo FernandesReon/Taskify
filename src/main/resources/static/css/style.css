@@ -26,7 +26,8 @@
 
     --border-color: hsla(0, 0%, 80%, 0.5);
 
-    --danger-color: hsl(354, 70%, 54%);
+    --danger-color: hsla(354, 70%, 54%, 0.85);
+    --success-color: hsl(134, 61%, 41%);
 }
 
 
@@ -414,4 +415,20 @@ textarea {
 
 .add-task ion-icon {
     font-size: 1.25rem;
+}
+
+/*alerts page*/
+.alerts{
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.failure{
+    color: var(--danger-color);
+}
+
+.success{
+    color: var(--success-color);
 }

@@ -14,20 +14,29 @@
                     <h1>Create an account</h1>
                     <p>Get started in seconds. Already have an account? <a th:href="@{/login}">Login here</a>.</p>
 
-                    <form action="#" method="post" class="access">
+                    <form th:action="@{/process-form}" method="post" th:object="${registerForm}" class="access"
+                            novalidate>
+
+                        <!-- alert messages -->
+                        <span class="success alerts" id="success-msg" th:if="${success}" th:text="${success}"></span>
+                        <span class="failure alerts" id="failure-msg" th:if="${failure}" th:text="${failure}"></span>
+
                         <!-- name and username -->
                         <div class="form-group">
                             <div>
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" placeholder="e.g. Alone Hacker"
+                                <input th:field="*{name}" type="text" name="name" id="name" placeholder="e.g. Alone Hacker"
                                        autocomplete="off" required>
-                                <!-- <span class="error-msg">Name is required</span> -->
+                                <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                                      class="error-msg"></span>
                             </div>
 
                             <div>
                                 <label for="username">Username</label>
-                                <input type="text" name="username" id="username" placeholder="e.g. alone_hacker"
+                                <input th:field="*{username}" type="text" name="username" id="username" placeholder="e.g. alone_hacker"
                                        autocomplete="off" required>
+                                <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                                      class="error-msg"></span>
                             </div>
                         </div>
 
@@ -36,14 +45,18 @@
                         <div class="form-group">
                             <div>
                                 <label for="email">Your email</label>
-                                <input type="email" name="email" id="email" placeholder="name@company.com"
+                                <input th:field="*{email}" type="email" name="email" id="email" placeholder="name@company.com"
                                        autocomplete="off" required>
+                                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                      class="error-msg"></span>
                             </div>
 
                             <div>
                                 <label for="phone">Phone</label>
-                                <input type="text" name="phone" id="phone" placeholder="(Optional) +91 123 456789"
+                                <input th:field="*{phoneNumber}" type="text" name="phone" id="phone" placeholder="(Optional) +91 123 456789"
                                        autocomplete="off">
+                                <span th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                      class="error-msg"></span>
                             </div>
                         </div>
 
@@ -52,8 +65,10 @@
                         <div class="form-group">
                             <div>
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••"
+                                <input th:field="*{password}" type="password" name="password" id="password" placeholder="••••••••"
                                        autocomplete="off" required>
+                                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                      class="error-msg"></span>
                             </div>
 
                             <div>
