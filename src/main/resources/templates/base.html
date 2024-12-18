@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="parent(content, title, script)">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="A user-friendly to-do list application that allows you to create, update, delete, and set reminders for your tasks.">
+    <meta name="keywords" content="todo list, task management, reminders, productivity">
+    <meta name="robots" content="index, follow">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+    <title th:replace="${title}">Base Page</title>
+</head>
+<body>
+<!--Common navigation bar-->
+<div th:replace="~{navbar :: navbar}"></div>
+
+<!--Dynamic content-->
+<div th:replace="${content}"></div>
+
+<!--Scripts-->
+<script th:src="@{/scripts/app.js}"></script>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+<th:block th:replace="${script}"></th:block>
+</body>
+</html>

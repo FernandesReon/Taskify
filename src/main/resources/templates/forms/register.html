@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+<head>
+    <title>Register Page</title>
+</head>
+<body>
+<div id="content">
+    <section class="auth-access" id="auth-access">
+        <div class="container">
+            <div class="outer-form-container">
+                <div class="inner-form-container">
+                    <h1>Create an account</h1>
+                    <p>Get started in seconds. Already have an account? <a th:href="@{/login}">Login here</a>.</p>
+
+                    <form action="#" method="post" class="access">
+                        <!-- name and username -->
+                        <div class="form-group">
+                            <div>
+                                <label for="name">Name</label>
+                                <input type="text" name="name" id="name" placeholder="e.g. Alone Hacker"
+                                       autocomplete="off" required>
+                                <!-- <span class="error-msg">Name is required</span> -->
+                            </div>
+
+                            <div>
+                                <label for="username">Username</label>
+                                <input type="text" name="username" id="username" placeholder="e.g. alone_hacker"
+                                       autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <!-- email and phone -->
+
+                        <div class="form-group">
+                            <div>
+                                <label for="email">Your email</label>
+                                <input type="email" name="email" id="email" placeholder="name@company.com"
+                                       autocomplete="off" required>
+                            </div>
+
+                            <div>
+                                <label for="phone">Phone</label>
+                                <input type="text" name="phone" id="phone" placeholder="(Optional) +91 123 456789"
+                                       autocomplete="off">
+                            </div>
+                        </div>
+
+                        <!-- password and confirm password -->
+
+                        <div class="form-group">
+                            <div>
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" placeholder="••••••••"
+                                       autocomplete="off" required>
+                            </div>
+
+                            <div>
+                                <label for="confirm">Confirm Password</label>
+                                <input type="password" name="confirm" id="confirm" placeholder="••••••••"
+                                       autocomplete="off" required>
+                            </div>
+                        </div>
+
+                        <!-- submit button -->
+
+                        <div class="access-btn">
+                            <button type="submit">Create an account</button>
+                        </div>
+
+                        <!-- divider -->
+
+                        <div class="or-divider">
+                            <div class="hr"></div>
+                            <span class="or">OR</span>
+                            <div class="hr"></div>
+                        </div>
+
+                        <!-- social login -->
+
+                        <div class="social-log">
+                            <a href="#" class="google" >
+                                <img th:src="@{/images/google-original.svg}" alt="Google Icon">
+                                Continue with Google
+                            </a>
+
+                            <a href="#" class="github">
+                                <img th:src="@{/images/github-original.svg}" alt="GitHub Icon">
+                                Continue with GitHub
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

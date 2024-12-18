@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+<head>
+    <title>Login Page</title>
+</head>
+<body>
+<div id="content">
+    <section class="auth-access" id="auth-access">
+        <div class="container">
+            <div class="outer-form-container">
+                <div class="inner-form-container">
+                    <h1>Welcome back</h1>
+                    <p>Manage tasks instantly. No account? <a th:href="@{/register}">Sign up now!</a>.</p>
+
+                    <form action="#" method="post" class="access">
+
+                        <!-- email and password -->
+
+                        <div class="form-group">
+                            <div>
+                                <label for="email">Your email</label>
+                                <input type="email" name="email" id="email" placeholder="name@company.com"
+                                       autocomplete="off" required>
+                            </div>
+
+                            <div>
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" placeholder="••••••••"
+                                       autocomplete="off" required>
+                                <a href="#" class="forgot">Forgot password?</a>
+                            </div>
+                        </div>
+
+                        <!-- submit button -->
+
+                        <div class="access-btn">
+                            <button type="submit">Log in to your account</button>
+                        </div>
+
+                        <!-- divider -->
+
+                        <div class="or-divider">
+                            <div class="hr"></div>
+                            <span class="or">OR</span>
+                            <div class="hr"></div>
+                        </div>
+
+                        <!-- social login -->
+
+                        <div class="social-log">
+                            <a href="#" class="google" >
+                                <img th:src="@{/images/google-original.svg}" alt="Google Icon">
+                                Continue with Google
+                            </a>
+
+                            <a href="#" class="github">
+                                <img th:src="@{/images/github-original.svg}" alt="GitHub Icon">
+                                Continue with GitHub
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
