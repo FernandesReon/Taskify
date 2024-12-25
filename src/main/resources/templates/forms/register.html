@@ -17,10 +17,6 @@
                     <form th:action="@{/process-form}" method="post" th:object="${registerForm}" class="access register"
                             novalidate>
 
-                        <!-- alert messages -->
-                        <span class="success alerts" id="success-msg" th:if="${success}" th:text="${success}"></span>
-                        <span class="failure alerts" id="failure-msg" th:if="${failure}" th:text="${failure}"></span>
-
                         <!-- name and username -->
                         <div class="form-group">
                             <div>

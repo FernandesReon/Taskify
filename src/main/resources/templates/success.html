@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+          content="A user-friendly to-do list application that allows you to create, update, delete, and set reminders for your tasks.">
+    <meta name="keywords" content="todo list, task management, reminders, productivity">
+    <meta name="robots" content="index, follow">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/responsive.css}">
+
+    <title>Success Page</title>
+</head>
+<body>
+<div class="success" id="success">
+    <div class="success-outer-container">
+        <div class="success-inner-container">
+            <h1 class="success-title">Success! <span class="success-tick">&#x2713;</span></h1>
+            <p class="success-message" id="success-msg" th:if="${session.success}" th:text="${session.success}"></p>
+            <a th:href="@{/login}" class="success-link">Proceed with Login</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

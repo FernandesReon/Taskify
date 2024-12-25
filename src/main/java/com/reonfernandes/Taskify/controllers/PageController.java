@@ -47,6 +47,19 @@ public class PageController {
         return "/forms/login";
     }
 
+    @GetMapping("/success")
+    public String successPage(){
+        logger.info("(Controller) Success page");
+        return "success";
+    }
+
+    @GetMapping("/error")
+    public String errorPage(){
+        logger.info("(Controller) Error page");
+        return "error";
+    }
+
+
     @GetMapping("/register")
     public String registerPage(Model model, HttpSession session){
         logger.info("(Controller) Register page");
@@ -81,7 +94,15 @@ public class PageController {
             user.setName(registerForm.getName());
             user.setUsername(registerForm.getUsername());
             user.setEmail(registerForm.getEmail());
-            user.setPhoneNumber(registerForm.getPhoneNumber());
+
+            if (registerForm.getPhoneNumber() != null && !registerForm.getPhoneNumber().isEmpty()){
+                user.setPhoneNumber(registerForm.getPhoneNumber());
+                logger.info("Phone number provided: {}", registerForm.getPhoneNumber());
+            }
+            else {
+                user.setPhoneNumber(null);
+                logger.info("No phone number provided.");
+            }
             user.setPassword(registerForm.getPassword());
             userServices.saveUser(user);
             logger.info("User: " + user);
@@ -91,9 +112,10 @@ public class PageController {
         } catch (Exception e) {
             logger.error("Error while creating user: " + e);
             session.setAttribute("failure", "Error! Occurred while creating your account. Please try again.");
+            return "redirect:/error";
         }
 
         logger.info("Form submitted.");
-        return "redirect:/register";
+        return "redirect:/success";
     }
 }

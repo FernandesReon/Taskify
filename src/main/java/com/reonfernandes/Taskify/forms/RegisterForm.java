@@ -26,8 +26,7 @@ public class RegisterForm {
     @Email(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$", message = "Please enter a valid email address")
     private String email;
 
-    @Pattern(regexp = "^\\+?[0-9. ()-]{7,25}$", message = "Invalid phone number")
-    @Size(min = 8, max = 15, message ="Min 8 and Max 15 digits")
+    @Pattern(regexp = "^(\\+?[0-9. ()-]{7,25})?$", message = "Invalid phone number")
     private String phoneNumber;
 
     @NotBlank(message = "Password is required")
