@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{:: script})}">
 <head>
     <title>Register Page</title>
 </head>
@@ -14,7 +14,7 @@
                     <h1>Create an account</h1>
                     <p>Get started in seconds. Already have an account? <a th:href="@{/login}">Login here</a>.</p>
 
-                    <form th:action="@{/process-form}" method="post" th:object="${registerForm}" class="access"
+                    <form th:action="@{/process-form}" method="post" th:object="${registerForm}" class="access register"
                             novalidate>
 
                         <!-- alert messages -->
@@ -72,16 +72,22 @@
                             </div>
 
                             <div>
-                                <label for="confirm">Confirm Password</label>
-                                <input type="password" name="confirm" id="confirm" placeholder="••••••••"
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••"
                                        autocomplete="off" required>
+                                <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                                      class="error-msg"></span>
+
                             </div>
                         </div>
 
                         <!-- submit button -->
 
                         <div class="access-btn">
-                            <button type="submit">Create an account</button>
+                            <button type="submit">
+                                <span> Create an account</span>
+                                <span class="loader" style="display: none"></span>
+                            </button>
                         </div>
 
                         <!-- divider -->
@@ -112,5 +118,27 @@
         </div>
     </section>
 </div>
+
+<script>
+    // To display loader when form is filled.
+    document.querySelector('.register').addEventListener('submit', function (event) {
+        const submitButton = document.querySelector('.access-btn button[type="submit"]');
+        const loader = submitButton.querySelector('.loader');
+
+        const password = document.querySelector('#password').value;
+        const confirmPassword = document.querySelector('#confirmPassword').value;
+
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            alert('Passwords do not match!');
+        }
+        else{
+            // If passwords match, show loader
+            submitButton.querySelector('span').textContent = "Creating account...";
+            loader.style.display = "inline-block";
+        }
+    });
+</script>
+
 </body>
 </html>

@@ -1,7 +1,8 @@
+// Mobile navigation
 const desktopView = document.querySelector(".navbar");
 const mobileView = document.querySelector(".mobile-view");
-const menuIcon = document.querySelector(".ion-icon[name = 'menu']");
-const closeIcon = document.querySelector(".ion-icon[name = 'close-circle']");
+const menuIcon = document.querySelector(".ion-icon[name='menu']");
+const closeIcon = document.querySelector(".ion-icon[name='close-circle']");
 
 const toggleNavbar = () =>{
     desktopView.classList.toggle("active");
@@ -14,7 +15,6 @@ const toggleNavbar = () =>{
         menuIcon.style.display = "block";
         closeIcon.style.display = "none";
     }
-
 }
 mobileView.addEventListener("click", () => toggleNavbar());
 

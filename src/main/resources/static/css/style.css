@@ -162,6 +162,12 @@ section {
     background: var(--button-bg) !important;
 }
 
+.logout:hover{
+    color: var(--button-text);
+    background: var(--danger-color);
+}
+
+
 /* mobile navigation */
 
 .mobile-view ion-icon {
@@ -299,6 +305,30 @@ button {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+button[type = "submit"]{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.loader{
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--background-color);
+    border-top: 2px solid var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .or-divider {

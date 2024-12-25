@@ -29,6 +29,12 @@ public class PageController {
         return "home";
     }
 
+    @GetMapping("/about")
+    public String aboutPage(){
+        logger.info("(Controller) About page");
+        return "about";
+    }
+
     @GetMapping("/contact")
     public String contactPage(){
         logger.info("(Controller) Contact page");
@@ -77,7 +83,6 @@ public class PageController {
             user.setEmail(registerForm.getEmail());
             user.setPhoneNumber(registerForm.getPhoneNumber());
             user.setPassword(registerForm.getPassword());
-
             userServices.saveUser(user);
             logger.info("User: " + user);
 

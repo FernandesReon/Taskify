@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{:: script})}">
 <head>
     <title>Login Page</title>
 </head>
@@ -14,7 +14,7 @@
                     <h1>Welcome back</h1>
                     <p>Manage tasks instantly. No account? <a th:href="@{/register}">Sign up now!</a>.</p>
 
-                    <form action="#" method="post" class="access">
+                    <form action="#" method="post" class="access login">
 
                         <!-- email and password -->
 
@@ -36,7 +36,10 @@
                         <!-- submit button -->
 
                         <div class="access-btn">
-                            <button type="submit">Log in to your account</button>
+                            <button type="submit">
+                                <span>Sign in to account</span>
+                                <span class="loader" style="display: none"></span>
+                            </button>
                         </div>
 
                         <!-- divider -->
@@ -67,5 +70,17 @@
         </div>
     </section>
 </div>
+
+<script>
+    // To display loader when form is filled.
+    document.querySelector('.login').addEventListener('submit', function (){
+        const submitButton = document.querySelector('.access-btn button[type="submit"]');
+        const loader = submitButton.querySelector('.loader');
+
+        submitButton.querySelector('span').textContent = "Signing in..";
+        loader.style.display = "inline-block";
+    });
+</script>
+
 </body>
 </html>
