@@ -162,9 +162,21 @@ section {
     background: var(--button-bg) !important;
 }
 
-.logout:hover{
+.logout{
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
     color: var(--button-text);
     background: var(--danger-color);
+    transition: 0.3s;
+}
+
+.logout:hover{
+    color: var(--button-text) !important;
+    background: var(--danger-color) !important;
 }
 
 
@@ -348,6 +360,20 @@ button[type = "submit"]{
     font-weight: 600;
     margin: 0 1rem;
     color: var(--text-secondary);
+}
+
+.login-form-logout-msg {
+    color: var(--success-color);
+}
+
+.invalid {
+    color: var(--danger-color);
+}
+
+.login-form-logout-msg,
+.invalid{
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
 /* social log */

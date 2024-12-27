@@ -14,7 +14,12 @@
                     <h1>Welcome back</h1>
                     <p>Manage tasks instantly. No account? <a th:href="@{/register}">Sign up now!</a>.</p>
 
-                    <form action="#" method="post" class="access login">
+                    <div th:if="${param.error}" class="invalid">
+                        Invalid username and password.</div>
+                    <div th:if="${param.logout}" class="login-form-logout-msg">
+                        You have been logged out successfully.</div>
+
+                    <form th:action="@{/authenticate}" method="post" class="access login">
 
                         <!-- email and password -->
 

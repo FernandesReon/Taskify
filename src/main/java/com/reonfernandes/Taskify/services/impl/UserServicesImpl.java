@@ -6,6 +6,7 @@ import com.reonfernandes.Taskify.repositories.UserRepository;
 import com.reonfernandes.Taskify.services.UserServices;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +17,11 @@ import java.lang.String;
 @Service
 public class UserServicesImpl implements UserServices {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public UserServicesImpl(UserRepository userRepository) {
+    public UserServicesImpl(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
 
@@ -29,6 +32,8 @@ public class UserServicesImpl implements UserServices {
         // Randomly generate ID.
         String userId = UUID.randomUUID().toString();
         user.setId(userId);
+
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         // Save the user to the repository
         User savedUser = userRepository.save(user);

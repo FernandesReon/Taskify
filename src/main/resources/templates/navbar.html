@@ -30,8 +30,17 @@
                         <li>
                             <a th:href="@{/contact}" class="nav-link">Contact</a>
                         </li>
-                        <li>
+                        <li th:if="${#authentication?.principal == 'anonymousUser'}">
                             <a th:href="@{/login}" class="nav-link auth">Get Started</a>
+                        </li>
+                        <li th:if="${#authentication?.principal != 'anonymousUser'}">
+                            <a th:href="@{/dashboard}" class="nav-link">Dashboard</a>
+                        </li>
+                        <li th:if="${#authentication?.principal != 'anonymousUser'}">
+                            <form th:action="@{/logout}" method="post" style="display: inline">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                                <button type="submit" class="logout">Logout</button>
+                            </form>
                         </li>
                     </ul>
                 </div>
