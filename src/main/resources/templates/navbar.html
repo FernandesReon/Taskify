@@ -34,7 +34,7 @@
                             <a th:href="@{/login}" class="nav-link auth">Get Started</a>
                         </li>
                         <li th:if="${#authentication?.principal != 'anonymousUser'}">
-                            <a th:href="@{/dashboard}" class="nav-link">Dashboard</a>
+                            <a th:href="@{/user/dashboard}" class="nav-link">Dashboard</a>
                         </li>
                         <li th:if="${#authentication?.principal != 'anonymousUser'}">
                             <form th:action="@{/logout}" method="post" style="display: inline">

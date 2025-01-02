@@ -58,12 +58,12 @@
                         <!-- social login -->
 
                         <div class="social-log">
-                            <a href="#" class="google" >
+                            <a th:href="@{'/oauth2/authorization/google'}" class="google" >
                                 <img th:src="@{/images/google-original.svg}" alt="Google Icon">
                                 Continue with Google
                             </a>
 
-                            <a href="#" class="github">
+                            <a th:href="@{'/oauth2/authorization/github'}" class="github">
                                 <img th:src="@{/images/github-original.svg}" alt="GitHub Icon">
                                 Continue with GitHub
                             </a>

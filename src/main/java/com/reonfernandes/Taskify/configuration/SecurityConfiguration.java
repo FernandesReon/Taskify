@@ -12,9 +12,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfiguration {
     private final CustomSecurityUserDetailsService userDetailsService;
+    private final OAuthSuccessHandler oAuthSuccessHandler;
 
-    public SecurityConfiguration(CustomSecurityUserDetailsService userDetailsService) {
+    public SecurityConfiguration(CustomSecurityUserDetailsService userDetailsService, OAuthSuccessHandler oAuthSuccessHandler) {
         this.userDetailsService = userDetailsService;
+        this.oAuthSuccessHandler = oAuthSuccessHandler;
     }
 
     @Bean
@@ -47,6 +49,11 @@ public class SecurityConfiguration {
        httpSecurity.logout(logout ->{
           logout.logoutUrl("/logout");
           logout.logoutSuccessUrl("/login?logout=true");
+       });
+
+       httpSecurity.oauth2Login(oauth ->{
+          oauth.loginPage("/login");
+          oauth.successHandler(oAuthSuccessHandler);
        });
 
        return httpSecurity.build();

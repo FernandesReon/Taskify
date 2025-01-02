@@ -53,11 +53,11 @@ public class PageController {
         return "success";
     }
 
-    @GetMapping("/error")
-    public String errorPage(){
-        logger.info("(Controller) Error page");
-        return "error";
-    }
+//    @GetMapping("/error")
+//    public String errorPage(){
+//        logger.info("(Controller) Error page");
+//        return "error";
+//    }
 
 
     @GetMapping("/register")
@@ -112,7 +112,6 @@ public class PageController {
         } catch (Exception e) {
             logger.error("Error while creating user: " + e);
             session.setAttribute("failure", "Error! Occurred while creating your account. Please try again.");
-            return "redirect:/error";
         }
 
         logger.info("Form submitted.");

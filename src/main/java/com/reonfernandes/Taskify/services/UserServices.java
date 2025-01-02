@@ -14,6 +14,6 @@ public interface UserServices {
 
     // Additional functionalities
     Optional<User> getUserById(String id);
-    Optional<User> getUserByEmail(String email);
+    User getUserByEmail(String email);
     Optional<User> getUserByUsername(String username);
 }

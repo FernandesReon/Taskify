@@ -17,23 +17,3 @@ const toggleNavbar = () =>{
     }
 }
 mobileView.addEventListener("click", () => toggleNavbar());
-
-
-// To display alert messages in register form
-document.addEventListener('DOMContentLoaded', function () {
-    const successMessage = document.getElementById('success-msg');
-    const errorMessage = document.getElementById('failure-msg');
-
-    // Check if either message exists
-    if (successMessage || errorMessage) {
-        // Set a timeout to hide the message after 5 seconds
-        setTimeout(() => {
-            if (successMessage) {
-                successMessage.style.display = 'none';
-            }
-            if (errorMessage) {
-                errorMessage.style.display = 'none';
-            }
-        }, 5000);
-    }
-});
