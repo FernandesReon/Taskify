@@ -7,9 +7,89 @@
 </head>
 <body>
 <div id="content">
-    <div class="container">
-        Welcome to dashboard!.
-    </div>
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+
+            <h1>Welcome to Taskify <span th:text="${loggedUser.name}"></span></h1>
+
+            <div class="dashboard-header">
+                <form action="#" method="get">
+                    <label for="search">Search for task</label>
+                    <input type="search" name="search" id="search" placeholder="Enter your task name or keyword"
+                           autocomplete="off">
+                </form>
+
+                <div class="header-actions">
+
+                    <a th:href="@{/user/addTask}" class="button"><ion-icon name="add-outline"></ion-icon>New Task</a>
+
+                    <label for="action"></label>
+                    <select name="" id="action">
+                        <option value="" disabled selected>Actions</option>
+                        <option value="mass edit">Mass Edit</option>
+                        <option value="delete all">Delete All</option>
+                    </select>
+
+                    <label for="category"></label>
+                    <select name="" id="category">
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="bills">Bills</option>
+                        <option value="housing">Housing</option>
+                        <option value="foods & drinks">Food & Drinks</option>
+                        <option value="others">Others</option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="hr" style="margin: 0.6rem auto;"></div>
+
+            <div class="dashboard-data">
+                <!-- card 1 -->
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="card-header">
+                            <span class="title">Morning Routine</span>
+                            <div class="task-actions">
+                                <a href="#" class="edit-btn">✏️</a>
+                                <a href="#" class="delete-btn">🗑️</a>
+                                <a href="#" class="complete-btn">✅</a>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="description">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque totam architecto
+                                animi quo repellendus dignissimos neque voluptates consequatur eos consectetur? Id
+                                reiciendis vitae provident maiores velit fugit ipsa facere natus!
+                            </p>
+                        </div>
+                        <div class="period">
+                            <div>
+                                <span class="date">📅2025-01-04</span>
+                            </div>
+                            <div>
+                                <span class="time">⌚10:00 am</span>
+                            </div>
+                        </div>
+
+                        <div class="classification">
+                            <div>
+                                <span>Status:</span> <span class="status">Pending</span>
+                            </div>
+                            <div>
+                                <span>Category:</span> <span class="category">Food & Drinks</span>
+                            </div>
+                        </div>
+                        <div class="classification">
+                            <span>Priority: <span class="priority">Critical</span></span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </div>
 </body>
 </html>

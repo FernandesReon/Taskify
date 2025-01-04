@@ -279,7 +279,20 @@ input {
     transition: 300ms;
 }
 
+select {
+    background-color: #f9fafb;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    border-radius: 0.4rem;
+    display: inline-block;
+    padding: 0.625rem;
+    outline: none;
+    transition: 300ms;
+}
+
 input:focus,
+select:focus,
 textarea:focus {
     outline: none;
     border-color: var(--accent-color);
@@ -306,7 +319,8 @@ textarea:focus {
     color: var(--danger-color);
 }
 
-button {
+button,
+.button{
     color: var(--button-text);
     background: var(--button-bg);
     font-weight: 500;
@@ -544,4 +558,139 @@ textarea {
 
 .success-link{
     background-color: var(--success-color);
+}
+
+/* service page */
+.loggedIn{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+.loggedIn img{
+    border-radius: 50%;
+    max-width: 20px;
+}
+
+.dashboard .container {
+    padding: 0 4rem;
+    position: relative;
+}
+
+.dashboard .container h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.dashboard .container h1 span{
+    color: var(--accent-color);
+}
+
+.dashboard-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: self-end;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.dashboard-header form {
+    width: 75%;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.header-actions a {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.header-actions ion-icon {
+    font-size: 1.1rem;
+}
+
+/* cards */
+.dashboard-data {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0.6rem;
+    margin: 2rem auto;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 0.4rem;
+    padding: 0.6rem;
+}
+
+.card-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.task-actions a:not(:first-child){
+    margin-left: 0.3rem;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body>div {
+    margin-bottom: 0.6rem;
+}
+
+.card-body .title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.card-body .description {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: justify;
+    color: var(--text-secondary);
+}
+
+.card-body .period {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.card-body .period span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.card-body .classification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.addTask  select{
+    width: 100%;
 }

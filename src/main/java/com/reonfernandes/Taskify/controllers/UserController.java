@@ -16,4 +16,9 @@ public class UserController {
     public String profilePage(){
         return "user/profile";
     }
+
+    @GetMapping("/addTask")
+    public String addTaskPage(){
+        return "user/addTask";
+    }
 }
