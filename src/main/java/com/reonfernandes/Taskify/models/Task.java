@@ -46,7 +46,8 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Category category;
+    @Builder.Default
+    private Category category = Category.OTHERS;
 
 
     @Column(updatable = false)

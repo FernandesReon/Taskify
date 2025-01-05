@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <title>Add Task Page</title>
+    <title th:text="${loggedUser.getName() + '| Taskify'}">Add Task Page</title>
 </head>
 <body>
 <section class="auth-access" id="auth-access">
@@ -25,31 +25,38 @@
                     <span id="error"></span>
                 </div>
 
-                <form action="/register-form" method="post" class="access register" novalidate>
+                <form
+                        th:action="@{/processTaskForm}"
+                        method="post"
+                        class="access register"
+                        th:object="${taskForm}"
+                        novalidate
+                >
 
                     <!-- Title -->
                     <div>
                         <label for="title">Title</label>
-                        <input type="text" name="title" id="title" placeholder="Task Title" autocomplete="off" required>
+                        <input th:field="*{title}" type="text" name="title" id="title" placeholder="Task Title"
+                               autocomplete="off" required>
                     </div>
 
                     <!-- Description -->
                     <div>
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="5" placeholder="Task Description"
-                                  autocomplete="off" required></textarea>
+                        <textarea th:field="*{description}" name="description" id="description" cols="30" rows="5"
+                                  placeholder="Task Description" autocomplete="off" required></textarea>
                     </div>
 
                     <!-- Date and Time -->
                     <div class="form-group">
                         <div>
-                            <label for="date">Date</label>
-                            <input type="date" name="date" id="date" required>
+                            <label for="localDate">Date</label>
+                            <input th:field="*{localDate}" type="date" name="date" id="localDate" required>
                         </div>
 
                         <div>
-                            <label for="time">Time</label>
-                            <input type="time" name="time" id="time" required>
+                            <label for="localTime">Time</label>
+                            <input th:field="*{localTime}" type="time" name="time" id="localTime" required>
                         </div>
                     </div>
 
@@ -57,31 +64,31 @@
                     <div class="form-group addTask">
                         <div>
                             <label for="status">Status</label>
-                            <select name="status" id="status" required>
-                                <option value="" disabled selected>Select Status</option>
-                                <option value="Not Started">Not Started</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
+                            <select name="status" id="status" th:field="*{status}" autocomplete="off" required>
+                                <option th:value="" disabled selected th:text="'Status'"
+                                        th:if="${taskForm.status == null || #strings.isEmpty(taskForm.status)}">
+                                </option>
+                                <option th:each="status : ${status}" th:value="${status}" th:text="${status}"></option>
                             </select>
                         </div>
 
                         <div>
                             <label for="priority">Priority</label>
-                            <select name="priority" id="priority" required>
-                                <option value="" disabled selected>Select Priority</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
+                            <select name="priority" id="priority" th:field="*{priority}" autocomplete="off" required>
+                                <option th:value="" disabled selected th:text="'Priority'"
+                                        th:if="${taskForm.priority == null || #strings.isEmpty(taskForm.priority)}">
+                                </option>
+                                <option th:each="priority : ${priority}" th:value="${priority}" th:text="${priority}"></option>
                             </select>
                         </div>
 
                         <div>
                             <label for="category">Category</label>
-                            <select name="category" id="category" required>
-                                <option value="" disabled selected>Select Category</option>
-                                <option value="Work">Work</option>
-                                <option value="Personal">Personal</option>
-                                <option value="Other">Other</option>
+                            <select name="category" id="category" th:field="*{category}" autocomplete="off" required>
+                                <option th:value="" disabled selected th:text="'Category'"
+                                        th:if="${taskForm.category == null || #strings.isEmpty(taskForm.category)}">
+                                </option>
+                                <option th:each="category : ${category}" th:value="${category}" th:text="${category}"></option>
                             </select>
                         </div>
                     </div>

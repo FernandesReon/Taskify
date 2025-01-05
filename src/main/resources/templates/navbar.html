@@ -37,8 +37,11 @@
                             <a th:href="@{/user/dashboard}" class="nav-link">Dashboard</a>
                         </li>
                         <li th:if="${#authentication?.principal != 'anonymousUser'}">
-                            <a th:href="@{/user/profile}" class="nav-link loggedIn" th:text="${loggedUser.getName()}">
-                                <img th:src="@{loggedUser.getProfilePic()}" alt="UserImage"></a>
+                            <a th:href="@{/user/profile}" class="nav-link loggedIn">
+                                <img th:src="${loggedUser.getProfilePic()}" alt="UserImage"
+                                     style="width: 20px; height: 20px; border-radius: 50%;">
+                                <span th:text="${loggedUser.getName()}"></span>
+                            </a>
                         </li>
                         <li th:if="${#authentication?.principal != 'anonymousUser'}">
                             <form th:action="@{/logout}" method="post" style="display: inline">

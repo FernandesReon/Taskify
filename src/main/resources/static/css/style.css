@@ -627,7 +627,7 @@ textarea {
 .card {
     background-color: var(--card-bg);
     border: 2px solid var(--border-color);
-    border-radius: 0.4rem;
+    border-radius: 0.8rem;
     padding: 0.6rem;
 }
 
@@ -637,6 +637,10 @@ textarea {
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 0.4rem;
+}
+
+.task-actions a{
+    font-size: 0.875rem;
 }
 
 .task-actions a:not(:first-child){
@@ -667,7 +671,6 @@ textarea {
 
 .card-body .period {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     gap: 0.4rem;
     flex-wrap: wrap;
@@ -683,12 +686,12 @@ textarea {
 
 .card-body .classification {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.6rem;
     flex-wrap: wrap;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 600;
+    margin-top: 0.8rem;
 }
 
 .addTask  select{

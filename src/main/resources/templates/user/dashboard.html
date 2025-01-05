@@ -32,7 +32,7 @@
 
                     <label for="category"></label>
                     <select name="" id="category">
-                        <option value="" disabled selected>Select Category</option>
+                        <option value="" disabled selected>Filter</option>
                         <option value="bills">Bills</option>
                         <option value="housing">Housing</option>
                         <option value="foods & drinks">Food & Drinks</option>
@@ -44,52 +44,102 @@
             <div class="hr" style="margin: 0.6rem auto;"></div>
 
             <div class="dashboard-data">
-                <!-- card 1 -->
-                <div class="card">
+                <!-- Task cards -->
+                <div class="card" th:each="task : ${taskPage.content}">
                     <div class="card-body">
 
                         <div class="card-header">
-                            <span class="title">Morning Routine</span>
+                            <span class="title" th:text="${task.title}">Task Title</span>
                             <div class="task-actions">
-                                <a href="#" class="edit-btn">✏️</a>
-                                <a href="#" class="delete-btn">🗑️</a>
-                                <a href="#" class="complete-btn">✅</a>
+                                <a th:href="@{/user/updateTask(id=${task.id})}" class="edit-btn">✏️</a>
+                                <a th:href="@{/user/deleteTask(id=${task.id})}" class="delete-btn">🗑️</a>
+                                <a th:href="@{/user/completeTask(id=${task.id})}" class="complete-btn">✅</a>
                             </div>
                         </div>
                         <div>
-                            <p class="description">
-                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque totam architecto
-                                animi quo repellendus dignissimos neque voluptates consequatur eos consectetur? Id
-                                reiciendis vitae provident maiores velit fugit ipsa facere natus!
+                            <p class="description" th:text="${task.description}">
+                                Task description goes here.
                             </p>
                         </div>
                         <div class="period">
                             <div>
-                                <span class="date">📅2025-01-04</span>
+                                <span class="date" th:text="'📅' + ${task.localDate}"></span>
                             </div>
                             <div>
-                                <span class="time">⌚10:00 am</span>
+                                <span class="time" th:text="'⌚' + ${task.localTime}"></span>
                             </div>
                         </div>
 
                         <div class="classification">
                             <div>
-                                <span>Status:</span> <span class="status">Pending</span>
+                                <span class="status task-stats">COMPLETED</span>
                             </div>
                             <div>
-                                <span>Category:</span> <span class="category">Food & Drinks</span>
+                                <span class="priority task-stats">MEDIUM</span>
                             </div>
-                        </div>
-                        <div class="classification">
-                            <span>Priority: <span class="priority">Critical</span></span>
+                            <div>
+                                <span class="category task-stats">ELECTRONICS</span>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+            </div>
 
+            <div class="pagination">
+                <a th:href="@{/user/dashboard(page=${taskPage.number - 1})}" th:if="${taskPage.hasPrevious()}">Previous</a>
+                <span>Page <span th:text="${taskPage.number + 1}"></span> of <span th:text="${taskPage.totalPages}"></span></span>
+                <a th:href="@{/user/dashboard(page=${taskPage.number + 1})}" th:if="${taskPage.hasNext()}">Next</a>
             </div>
         </div>
     </section>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // Color mappings for status, priority, and category
+        const colorMappings = {
+            // Status colors
+            NOT_STARTED: { background: "#D3D3D3", color: "#4F4F4F" },
+            IN_PROGRESS: { background: "#ADD8E6", color: "#000080" },
+            COMPLETED: { background: "#90EE90", color: "#006400" },
+            CANCELED: { background: "#FFA07A", color: "#8B0000" },
+            PENDING: { background: "#FFFACD", color: "#B8860B" },
+            BLOCKED: { background: "#FFDAB9", color: "#FF4500" },
+            ARCHIVED: { background: "#E6E6FA", color: "#800080" },
+
+            // Priority colors
+            CRITICAL: { background: "#FF4500", color: "#FFFFFF" },
+            HIGH: { background: "#FFA500", color: "#000000" },
+            MEDIUM: { background: "#FFD700", color: "#000000" },
+            LOW: { background: "#32CD32", color: "#FFFFFF" },
+
+            // Category colors
+            FOOD_DRINKS: { background: "#FFB6C1", color: "#8B0000" },
+            SHOPPING: { background: "#87CEEB", color: "#00008B" },
+            HOUSING: { background: "#FFE4B5", color: "#8B4513" },
+            BILLS: { background: "#ADD8E6", color: "#00008B" },
+            TRANSPORT: { background: "#98FB98", color: "#006400" },
+            VEHICLE: { background: "#FFDAB9", color: "#8B4513" },
+            ELECTRONICS: { background: "#DDA0DD", color: "#4B0082" },
+            LEISURE: { background: "#FF69B4", color: "#8B0000" },
+            OTHER: { background: "#D3D3D3", color: "#4F4F4F" },
+        };
+
+        // Apply colors dynamically
+        const elements = document.querySelectorAll(".task-stats");
+        elements.forEach((element) => {
+            const text = element.textContent.trim(); // Get the text content of the element
+            const colorInfo = colorMappings[text]; // Get color info based on text
+
+            if (colorInfo) {
+                element.style.backgroundColor = colorInfo.background;
+                element.style.color = colorInfo.color;
+                element.style.padding = "0.4rem"; // Optional: Add padding for better visibility
+                element.style.borderRadius = "0.2rem"; // Optional: Add rounded corners
+            }
+        });
+    });
+</script>
 </body>
 </html>
