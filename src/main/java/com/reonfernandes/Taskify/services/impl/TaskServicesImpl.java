@@ -1,16 +1,14 @@
 package com.reonfernandes.Taskify.services.impl;
 
 import com.reonfernandes.Taskify.exceptions.ResourceNotFoundException;
-import com.reonfernandes.Taskify.models.Category;
-import com.reonfernandes.Taskify.models.Priority;
-import com.reonfernandes.Taskify.models.Status;
-import com.reonfernandes.Taskify.models.Task;
+import com.reonfernandes.Taskify.models.*;
 import com.reonfernandes.Taskify.repositories.TaskRepository;
 import com.reonfernandes.Taskify.services.TaskServices;
 import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -33,9 +31,11 @@ public class TaskServicesImpl implements TaskServices {
     }
 
     @Override
-    public Page<Task> getAllTask(Pageable pageable) {
-        return taskRepository.findAll(pageable);
+    public Page<Task> getTasksForUser(User user, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return taskRepository.findByUser(user, pageable);
     }
+
 
     @Override
     public Optional<Task> updateTask(Task task) {

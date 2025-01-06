@@ -26,9 +26,9 @@
                 </div>
 
                 <form
-                        th:action="@{/processTaskForm}"
+                        th:action="@{/user/processTaskForm}"
                         method="post"
-                        class="access register"
+                        class="access creatTask"
                         th:object="${taskForm}"
                         novalidate
                 >
@@ -38,6 +38,7 @@
                         <label for="title">Title</label>
                         <input th:field="*{title}" type="text" name="title" id="title" placeholder="Task Title"
                                autocomplete="off" required>
+                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-msg"></span>
                     </div>
 
                     <!-- Description -->
@@ -45,6 +46,7 @@
                         <label for="description">Description</label>
                         <textarea th:field="*{description}" name="description" id="description" cols="30" rows="5"
                                   placeholder="Task Description" autocomplete="off" required></textarea>
+                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                     </div>
 
                     <!-- Date and Time -->
@@ -75,7 +77,7 @@
                         <div>
                             <label for="priority">Priority</label>
                             <select name="priority" id="priority" th:field="*{priority}" autocomplete="off" required>
-                                <option th:value="" disabled selected th:text="'Priority'"
+                                <option th:value="" disabled hidden="hidden" th:text="'Priority'"
                                         th:if="${taskForm.priority == null || #strings.isEmpty(taskForm.priority)}">
                                 </option>
                                 <option th:each="priority : ${priority}" th:value="${priority}" th:text="${priority}"></option>
@@ -96,8 +98,8 @@
                     <!-- Submit button -->
                     <div class="access-btn" style="display: flex; gap: 0.6rem; margin-top: 1rem;">
                         <button type="submit" class="button">
-                            <span>Add Task</span>
-                            <span class="loader" style="display: block"></span>
+                            <span>Create Task</span>
+                            <span class="loader" style="display: none"></span>
                         </button>
                         <button type="reset" class="button reset" style="background-color: var(--danger-color);">
                             <span>Reset</span>
@@ -108,5 +110,18 @@
         </div>
     </div>
 </section>
+
+<script>
+    document.querySelector('.creatTask').addEventListener('submit', function () {
+        const submitButton = document.querySelector('.form-btns button[type="submit"]');
+        const loader = submitButton.querySelector('.loader');
+
+        // Change button text
+        submitButton.querySelector('span').textContent = 'Creating task...';
+
+        // Show the loader
+        loader.style.display = 'inline-block';
+    });
+</script>
 </body>
 </html>

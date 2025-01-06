@@ -45,7 +45,7 @@
 
             <div class="dashboard-data">
                 <!-- Task cards -->
-                <div class="card" th:each="task : ${taskPage.content}">
+                <div class="card" th:each="task : ${taskList}">
                     <div class="card-body">
 
                         <div class="card-header">
@@ -72,13 +72,13 @@
 
                         <div class="classification">
                             <div>
-                                <span class="status task-stats">COMPLETED</span>
+                                <span class="status task-stats" th:text="${task.status}">COMPLETED</span>
                             </div>
                             <div>
-                                <span class="priority task-stats">MEDIUM</span>
+                                <span class="priority task-stats" th:text="${task.priority}">MEDIUM</span>
                             </div>
                             <div>
-                                <span class="category task-stats">ELECTRONICS</span>
+                                <span class="category task-stats" th:text="${task.category}">ELECTRONICS</span>
                             </div>
                         </div>
 
@@ -86,11 +86,7 @@
                 </div>
             </div>
 
-            <div class="pagination">
-                <a th:href="@{/user/dashboard(page=${taskPage.number - 1})}" th:if="${taskPage.hasPrevious()}">Previous</a>
-                <span>Page <span th:text="${taskPage.number + 1}"></span> of <span th:text="${taskPage.totalPages}"></span></span>
-                <a th:href="@{/user/dashboard(page=${taskPage.number + 1})}" th:if="${taskPage.hasNext()}">Next</a>
-            </div>
+
         </div>
     </section>
 </div>

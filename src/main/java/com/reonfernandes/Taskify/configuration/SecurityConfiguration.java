@@ -35,7 +35,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain (HttpSecurity httpSecurity) throws Exception {
        httpSecurity.authorizeHttpRequests(authorize -> {
           authorize.requestMatchers("/user/**").authenticated();
-          authorize.anyRequest().permitAll();
+           authorize.anyRequest().permitAll();
        });
 
        httpSecurity.formLogin(login ->{

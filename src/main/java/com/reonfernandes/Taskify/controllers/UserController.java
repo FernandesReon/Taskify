@@ -1,22 +1,20 @@
 package com.reonfernandes.Taskify.controllers;
 
 import com.reonfernandes.Taskify.forms.TaskForm;
-import com.reonfernandes.Taskify.models.Category;
-import com.reonfernandes.Taskify.models.Priority;
-import com.reonfernandes.Taskify.models.Status;
-import com.reonfernandes.Taskify.models.Task;
+import com.reonfernandes.Taskify.models.*;
 import com.reonfernandes.Taskify.services.impl.TaskServicesImpl;
+import com.reonfernandes.Taskify.services.impl.UserServicesImpl;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,43 +29,46 @@ public class UserController {
     private final List<String> priority = Arrays.asList("CRITICAL", "HIGH", "MEDIUM", "LOW");
 
     private final TaskServicesImpl taskServices;
+    private final UserServicesImpl userServices;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-    public UserController(TaskServicesImpl taskServices) {
+    public UserController(TaskServicesImpl taskServices, UserServicesImpl userServices) {
         this.taskServices = taskServices;
+        this.userServices = userServices;
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
-            Model model
-    ){
-        Page<Task> taskPage = taskServices.getAllTask(PageRequest.of(page, size));
-        model.addAttribute("taskPage", taskPage);
+    public String dashboardPage(@RequestParam(defaultValue = "1") int page,
+                                @RequestParam(defaultValue = "6") int size,
+                                Model model) {
+        // Fetch the logged-in user
+        User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
 
-        // Add pagination details to the model
+        // Get tasks for the logged-in user
+        Page<Task> paginated = taskServices.getTasksForUser(loggedInUser, page, size);
+        List<Task> taskList = paginated.getContent();
+
+        // Add attributes to the model
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", taskPage.getTotalPages());
-        model.addAttribute("totalItems", taskPage.getTotalElements());
+        model.addAttribute("totalPages", paginated.getTotalPages());
+        model.addAttribute("totalItems", paginated.getTotalElements());
+        model.addAttribute("taskList", taskList);
 
         return "user/dashboard";
     }
 
-    @GetMapping("/profile")
-    public String profilePage(){
-        return "user/profile";
-    }
 
     @GetMapping("/addTask")
     public String addTaskPage(Model model){
         logger.info("(Controller) Add task page");
 
         TaskForm taskForm = new TaskForm();
+
         taskForm.setPriority(Priority.MEDIUM);
         taskForm.setStatus(Status.NOT_STARTED);
         taskForm.setCategory(Category.OTHERS);
 
         model.addAttribute("taskForm", taskForm);
+
         model.addAttribute("category", category);
         model.addAttribute("status", status);
         model.addAttribute("priority", priority);
@@ -76,16 +77,45 @@ public class UserController {
     }
 
     @PostMapping("/processTaskForm")
-    public String processTaskForm(){
-        return "redirect:/user/dashboard";
+    public String processTaskForm(@Valid @ModelAttribute("taskForm") TaskForm taskForm,
+                                  BindingResult result, Model model) {
+        User loggedInUser = userServices.getUserByEmail(
+                SecurityContextHolder.getContext().getAuthentication().getName()
+        );
+        logger.info("Processing form (create task)");
+
+        if (result.hasErrors()) {
+            logger.info("Validation errors: {}", result.getAllErrors());
+            return "/user/addTask";
+        }
+
+        try {
+            Task task = new Task();
+            task.setTitle(taskForm.getTitle());
+            task.setDescription(taskForm.getDescription()); // Fixed this line
+            task.setLocalDate(taskForm.getLocalDate());
+            task.setLocalTime(taskForm.getLocalTime());
+            task.setStatus(taskForm.getStatus());
+            task.setPriority(taskForm.getPriority());
+            task.setCategory(taskForm.getCategory() != null ? taskForm.getCategory() : Category.OTHERS);
+            task.setUpdatedAt(LocalDateTime.now());
+            task.setCreatedAt(LocalDateTime.now());
+            task.setUser(loggedInUser);
+
+            logger.info("Task details: {}", task);
+            taskServices.newTask(task);
+            logger.info("Task saved successfully.");
+
+            return "redirect:/user/dashboard";
+        } catch (Exception e) {
+            logger.error("Error while saving task: ", e);
+            model.addAttribute("errorMessage", "An error occurred while saving the task.");
+            return "/user/addTask";
+        }
     }
 
     @GetMapping("/updateTask")
-    public String updateTaskPage(
-            @Valid @ModelAttribute("taskForm") TaskForm taskForm,
-            BindingResult result, Model model)
-    {
-
+    public String updateTaskPage() {
         return "user/updateTask";
     }
 
@@ -94,5 +124,10 @@ public class UserController {
         model.addAttribute("category", category);
         model.addAttribute("status", status);
         model.addAttribute("priority", priority);
+    }
+
+    @GetMapping("/profile")
+    public String profilePage(){
+        return "user/profile";
     }
 }
