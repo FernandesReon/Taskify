@@ -25,13 +25,13 @@
                     <span id="error"></span>
                 </div>
 
+                <!-- if you don't add /user in the action before the actual url it will give error.-->
                 <form
                         th:action="@{/user/processTaskForm}"
                         method="post"
                         class="access creatTask"
                         th:object="${taskForm}"
-                        novalidate
-                >
+                        novalidate>
 
                     <!-- Title -->
                     <div>

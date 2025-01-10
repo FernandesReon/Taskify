@@ -51,9 +51,9 @@
                         <div class="card-header">
                             <span class="title" th:text="${task.title}">Task Title</span>
                             <div class="task-actions">
-                                <a th:href="@{/user/updateTask(id=${task.id})}" class="edit-btn">✏️</a>
-                                <a th:href="@{/user/deleteTask(id=${task.id})}" class="delete-btn">🗑️</a>
-                                <a th:href="@{/user/completeTask(id=${task.id})}" class="complete-btn">✅</a>
+                                <a th:href="@{/user/updateTask/{id} (id=${task.id})}" class="edit-btn">✏️</a>
+                                <a th:href="@{/user/deleteTask/{id} (id=${task.id})}" class="delete-btn">🗑️</a>
+                                <a th:href="@{/user/toggleTask/{id} (id=${task.id})}" class="complete-btn">✅</a>
                             </div>
                         </div>
                         <div>

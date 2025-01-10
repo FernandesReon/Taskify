@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -114,9 +115,73 @@ public class UserController {
         }
     }
 
-    @GetMapping("/updateTask")
-    public String updateTaskPage() {
-        return "user/updateTask";
+    @GetMapping("/updateTask/{id}")
+    public String updateTaskPage(@PathVariable("id") Long id, Model model) {
+        Optional<Task> optionalTask = taskServices.getTaskById(id);
+        if (optionalTask.isPresent()){
+            Task task = optionalTask.get();
+            TaskForm taskForm = new TaskForm();
+            taskForm.setTitle(task.getTitle());
+            taskForm.setDescription(task.getDescription());
+            taskForm.setLocalDate(task.getLocalDate());
+            taskForm.setLocalTime(task.getLocalTime());
+            taskForm.setPriority(task.getPriority());
+            taskForm.setStatus(task.getStatus());
+            taskForm.setCategory(task.getCategory());
+
+            model.addAttribute("taskForm", taskForm);
+            model.addAttribute("taskId", id);
+            return "/user/updateTask";
+        }
+        return "redirect:/user/dashboard";
+    }
+
+    @PostMapping("/processUpdateTaskPage/{id}")
+    public String processUpdateTaskPage(
+            @PathVariable("id") Long id,
+            @Valid @ModelAttribute("taskForm") TaskForm taskForm,
+            BindingResult result, Model model) {
+
+        if (result.hasErrors()) {
+            model.addAttribute("taskForm", taskForm);
+            model.addAttribute("taskId", id);
+            return "/user/updateTask";
+        }
+
+        Optional<Task> optionalTask = taskServices.getTaskById(id);
+        if (optionalTask.isPresent()) {
+            Task task = optionalTask.get();
+            task.setTitle(taskForm.getTitle());
+            task.setDescription(taskForm.getDescription());
+            task.setLocalDate(taskForm.getLocalDate());
+            task.setLocalTime(taskForm.getLocalTime());
+            task.setPriority(taskForm.getPriority());
+            task.setStatus(taskForm.getStatus());
+            task.setCategory(taskForm.getCategory());
+            task.setUpdatedAt(LocalDateTime.now());
+
+            taskServices.updateTask(task, id);
+            return "redirect:/user/dashboard";
+        }
+
+        model.addAttribute("errorMessage", "Task not found");
+        return "/user/updateTask";
+    }
+
+
+    @GetMapping("/deleteTask/{id}")
+    public String deleteTask(@PathVariable("id") Long id){
+        logger.info("Deleting task with id: " + id);
+        taskServices.deleteTask(id);
+        logger.info("Task with id: " + id + " deleted successfully.");
+        return "redirect:/user/dashboard";
+    }
+
+    @GetMapping("/toggleTask/{id}")
+    public String toggleTask(@PathVariable("id") Long id){
+        logger.info("Task with id: " + id + " completed..");
+        taskServices.completeTask(id);
+        return "redirect:/user/dashboard";
     }
 
     @ModelAttribute

@@ -10,14 +10,14 @@
 
     <link rel="stylesheet" th:href="@{/css/style.css}">
 
-    <title>Update Task Page</title>
+    <title th:text="${loggedUser.getName() + ' | Taskify'}">Task Update page</title>
 </head>
 <body>
 <section class="auth-access" id="auth-access">
     <div class="container">
         <div class="outer-form-container">
             <div class="inner-form-container">
-                <h1>Update Task</h1>
+                <h1>Define. Plan. Conquer.</h1>
                 <p>Stay productive by updating and managing your tasks efficiently. <a th:href="@{/user/dashboard}">
                     Return to dashboard</a>.</p>
 
@@ -26,30 +26,36 @@
                     <span id="error"></span>
                 </div>
 
-                <form action="/register-form" method="post" class="access register" novalidate>
+                <!-- if you don't add /user in the action before the actual url it will give error.-->
+                <form th:action="@{/user/processUpdateTaskPage/{id}(id=${taskId})}"
+                      th:object="${taskForm}" method="post" novalidate class="access creatTask">
 
                     <!-- Title -->
                     <div>
                         <label for="title">Title</label>
-                        <input type="text" name="title" id="title" placeholder="Task Title" autocomplete="off" required>
+                        <input th:field="*{title}" type="text" name="title" id="title" placeholder="Task Title"
+                               autocomplete="off" required>
+                        <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="error-msg"></span>
                     </div>
 
                     <!-- Description -->
                     <div>
                         <label for="description">Description</label>
-                        <textarea name="description" id="description" cols="30" rows="5" placeholder="Task Description" autocomplete="off" required></textarea>
+                        <textarea th:field="*{description}" name="description" id="description" cols="30" rows="5"
+                                  placeholder="Task Description" autocomplete="off" required></textarea>
+                        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
                     </div>
 
                     <!-- Date and Time -->
                     <div class="form-group">
                         <div>
-                            <label for="date">Date</label>
-                            <input type="date" name="date" id="date" required>
+                            <label for="localDate">Date</label>
+                            <input th:field="*{localDate}" type="date" name="date" id="localDate" required>
                         </div>
 
                         <div>
-                            <label for="time">Time</label>
-                            <input type="time" name="time" id="time" required>
+                            <label for="localTime">Time</label>
+                            <input th:field="*{localTime}" type="time" name="time" id="localTime" required>
                         </div>
                     </div>
 
@@ -57,31 +63,31 @@
                     <div class="form-group addTask">
                         <div>
                             <label for="status">Status</label>
-                            <select name="status" id="status" required>
-                                <option value="" disabled selected>Select Status</option>
-                                <option value="Not Started">Not Started</option>
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
+                            <select name="status" id="status" th:field="*{status}" autocomplete="off" required>
+                                <option th:each="status : ${status}"
+                                        th:value="${status}"
+                                        th:text="${status}"
+                                        selected></option>
                             </select>
                         </div>
 
                         <div>
                             <label for="priority">Priority</label>
-                            <select name="priority" id="priority" required>
-                                <option value="" disabled selected>Select Priority</option>
-                                <option value="Low">Low</option>
-                                <option value="Medium">Medium</option>
-                                <option value="High">High</option>
+                            <select name="priority" id="priority" th:field="*{priority}" autocomplete="off" required>
+                                <option th:each="priority : ${priority}"
+                                        th:value="${priority}"
+                                        th:text="${priority}"
+                                        selected></option>
                             </select>
                         </div>
 
                         <div>
                             <label for="category">Category</label>
-                            <select name="category" id="category" required>
-                                <option value="" disabled selected>Select Category</option>
-                                <option value="Work">Work</option>
-                                <option value="Personal">Personal</option>
-                                <option value="Other">Other</option>
+                            <select name="category" id="category" th:field="*{category}" autocomplete="off" required>
+                                <option th:each="category : ${category}"
+                                        th:value="${category}"
+                                        th:text="${category}"
+                                        selected></option>
                             </select>
                         </div>
                     </div>
@@ -90,7 +96,7 @@
                     <div class="access-btn" style="display: flex; gap: 0.6rem; margin-top: 1rem;">
                         <button type="submit" class="button">
                             <span>Update Task</span>
-                            <span class="loader" style="display: block"></span>
+                            <span class="loader" style="display: none"></span>
                         </button>
                         <button type="reset" class="button reset" style="background-color: var(--danger-color);">
                             <span>Reset</span>
@@ -101,5 +107,18 @@
         </div>
     </div>
 </section>
+
+<!--<script>-->
+<!--    document.querySelector('.creatTask').addEventListener('submit', function () {-->
+<!--        const submitButton = document.querySelector('.form-btns button[type="submit"]');-->
+<!--        const loader = submitButton.querySelector('.loader');-->
+
+<!--        // Change button text-->
+<!--        submitButton.querySelector('span').textContent = 'Creating task...';-->
+
+<!--        // Show the loader-->
+<!--        loader.style.display = 'inline-block';-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

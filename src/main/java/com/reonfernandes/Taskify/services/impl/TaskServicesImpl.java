@@ -4,7 +4,6 @@ import com.reonfernandes.Taskify.exceptions.ResourceNotFoundException;
 import com.reonfernandes.Taskify.models.*;
 import com.reonfernandes.Taskify.repositories.TaskRepository;
 import com.reonfernandes.Taskify.services.TaskServices;
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -38,9 +37,9 @@ public class TaskServicesImpl implements TaskServices {
 
 
     @Override
-    public Optional<Task> updateTask(Task task) {
+    public void updateTask(Task task, Long id) {
         Task updateTask = taskRepository.findById(task.getId()).orElseThrow(
-                () -> new ResourceNotFoundException("Task with id: " + task.getId() + " not found.")
+                () -> new ResourceNotFoundException("Task with id: " + id + " not found.")
         );
 
         logger.info("Updating task: {}", task);
@@ -54,9 +53,7 @@ public class TaskServicesImpl implements TaskServices {
         updateTask.setUpdatedAt(task.getUpdatedAt());
 
         logger.info("Updated task: {}", updateTask);
-        Task saveTask = taskRepository.save(updateTask);
-
-        return Optional.ofNullable(saveTask);
+        taskRepository.save(updateTask);
     }
 
     @Override
