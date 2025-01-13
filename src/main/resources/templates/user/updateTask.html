@@ -108,17 +108,22 @@
     </div>
 </section>
 
-<!--<script>-->
-<!--    document.querySelector('.creatTask').addEventListener('submit', function () {-->
-<!--        const submitButton = document.querySelector('.form-btns button[type="submit"]');-->
-<!--        const loader = submitButton.querySelector('.loader');-->
+<script>
+    document.querySelector('.creatTask').addEventListener('submit', function () {
+        const submitButton = document.querySelector('.access-btn button[type="submit"]');
+        if (!submitButton) return; // Safety check
 
-<!--        // Change button text-->
-<!--        submitButton.querySelector('span').textContent = 'Creating task...';-->
+        const loader = submitButton.querySelector('.loader');
+        if (!loader) return; // Safety check
 
-<!--        // Show the loader-->
-<!--        loader.style.display = 'inline-block';-->
-<!--    });-->
-<!--</script>-->
+        // Change button text
+        const span = submitButton.querySelector('span');
+        if (span) span.textContent = 'Updating task...';
+
+        // Show the loader
+        loader.style.display = 'inline-block';
+    });
+</script>
+
 </body>
 </html>

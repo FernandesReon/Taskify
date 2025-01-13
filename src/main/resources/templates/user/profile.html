@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+<div id="content">
+    <section class="user" id="user">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="avatar">
+                        <img th:src="${loggedUser.profilePic}" alt="User Avatar">
+                    </div>
+                    <h1 class="name" th:text="${loggedUser.name}">Reon Fernandes</h1>
+                    <p class="username">@<span th:text="${#strings.substringBefore(loggedUser.email, '@')}"></span></p>
+                    <button id="editButton" class="edit-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             class="lucide lucide-pencil">
+                            <path
+                                    d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z" />
+                            <path d="m15 5 4 4" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="profile-content">
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-send">
+                                <path
+                                        d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                                <path d="m21.854 2.147-10.94 10.939" />
+                            </svg>
+                            <div>
+                                <p class="label">Email</p>
+                                <p class="value" id="emailValue" th:text="${loggedUser.email}">alonehacker@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-smartphone">
+                                <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                                <path d="M12 18h.01" />
+                            </svg>
+                            <div>
+                                <p class="label">Phone</p>
+                                <p class="value" id="phoneValue" th:if="${loggedUser.phoneNumber == null}" th:text="'null'">+91 7497575213</p>
+                                <p class="value" th:text="${loggedUser.phoneNumber}"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-user-round-cog">
+                                <path d="M2 21a8 8 0 0 1 10.434-7.62" />
+                                <circle cx="10" cy="8" r="5" />
+                                <circle cx="18" cy="18" r="3" />
+                                <path d="m19.5 14.3-.4.9" />
+                                <path d="m16.9 20.8-.4.9" />
+                                <path d="m21.7 19.5-.9-.4" />
+                                <path d="m15.2 16.9-.9-.4" />
+                                <path d="m21.7 16.5-.9.4" />
+                                <path d="m15.2 19.1-.9.4" />
+                                <path d="m19.5 21.7-.4-.9" />
+                                <path d="m16.9 15.2-.4-.9" />
+                            </svg>
+                            <div>
+                                <p class="label">Accound Enabled:</p>
+                                <p class="value" id="account" th:if="${loggedUser.accountEnabled}" th:text="'Yes'"></p>
+                                <p class="value" th:if="${!loggedUser.accountEnabled}" th:text="'No'"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-badge-check">
+                                <path
+                                        d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" />
+                                <path d="m9 12 2 2 4-4" />
+                            </svg>
+                            <div>
+                                <p class="label">Email Verified:</p>
+                                <p class="value" id="emailVerified" th:if="${loggedUser.emailVerified}" th:text="'Yes'">No</p>
+                                <p class="value" th:if="${!loggedUser.emailVerified}" th:text="'No'"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-key-round">
+                                <path
+                                        d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/>
+                                <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>
+                            </svg>
+                            <div>
+                                <p class="label">Current Password:</p>
+                                <p class="value" id="currentPassword"
+                                   th:text="${#strings.substring(loggedUser.password, 0 , 10)} + '......'"></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-rotate-ccw">
+                                <path
+                                        d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+                            </svg>
+                            <div>
+                                <p class="label">Reset Password</p>
+                                <p class="value"><a th:href="@{/reset}" style="color: var(--danger-color)">Click to reset</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

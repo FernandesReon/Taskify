@@ -1,0 +1,125 @@
+.nav {
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    background-color: var(--background);
+    backdrop-filter: blur(10px);
+    transition: background-color 0.3s ease;
+}
+
+.nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    font-size: 24px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.35rem;
+}
+
+.nav-link {
+    font-size: 1rem;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent);
+}
+
+.logout{
+    color: var(--danger-color) !important;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* toggle theme and menu */
+.nav-actions{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.theme-toggle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s ease;
+}
+
+.theme-toggle svg {
+    display: none;
+}
+
+#sun-icon,
+#moon-icon {
+    display: none;
+}
+
+.mobile-view #close-icon {
+    display: none;
+}
+
+.mobile-view {
+    cursor: pointer;
+    display: none;
+}
+
+[data-theme="dark"] #sun-icon {
+    display: inline;
+}
+
+[data-theme="light"] #moon-icon {
+    display: inline;
+}
+
+
+@media (max-width: 1024px) {
+    .mobile-view {
+        display: block;
+        z-index: 100;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        background-color: var(--nav-bg);
+        position: absolute;
+        top: 70px;
+        right: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .active.mobile-view #close-icon {
+        display: block;
+    }
+
+    .active.mobile-view #menu-icon {
+        display: none;
+    }
+}

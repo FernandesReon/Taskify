@@ -113,15 +113,20 @@
 
 <script>
     document.querySelector('.creatTask').addEventListener('submit', function () {
-        const submitButton = document.querySelector('.form-btns button[type="submit"]');
+        const submitButton = document.querySelector('.access-btn button[type="submit"]');
+        if (!submitButton) return; // Safety check
+
         const loader = submitButton.querySelector('.loader');
+        if (!loader) return; // Safety check
 
         // Change button text
-        submitButton.querySelector('span').textContent = 'Creating task...';
+        const span = submitButton.querySelector('span');
+        if (span) span.textContent = 'Creating task...';
 
         // Show the loader
         loader.style.display = 'inline-block';
     });
 </script>
+
 </body>
 </html>

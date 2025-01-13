@@ -1,0 +1,251 @@
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 2rem;
+}
+
+.profile-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: var(--background);
+    border-radius: 0.4rem;
+}
+
+.profile-info h2 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.profile-info p {
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.profile svg{
+    color: var(--accent);
+}
+
+/* table header */
+.table-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 01rem;
+}
+
+.table-actions{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.search-form{
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.search-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.search-input {
+    padding: 0.625rem 2.25rem;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.search-input:focus {
+    border-color: var(--accent);
+}
+
+/* table action buttons */
+.task-modal,
+.actions,
+.filter{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.actions,
+.filter{
+    background-color: transparent;
+    border: 1px solid #888;
+    color: var(--text-color);
+}
+
+/* task cards */
+.task-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin: 3rem auto;
+}
+
+.task-complete{
+    background-color: rgba(200, 200, 200, 0.2);
+    color: #6c757d;
+    border: 1px solid #dee2e6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.task-complete:hover {
+    background-color: rgba(230, 230, 230, 0.9);
+    color: #6c757d;
+}
+
+.card{
+    position: relative;
+    border: 2px solid var(--border-color);
+    border-radius: 0.8rem;
+    padding: 0.6rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.card div{
+    margin-bottom: 0.4rem;
+}
+
+.card-title{
+    margin-bottom: 0.2rem;
+}
+
+.card-title h2{
+    font-size: 1.4rem;
+}
+
+.card-desc p{
+    font-size: 0.85rem;
+    text-align: justify;
+}
+
+[data-theme = "dark"] .card-desc p{
+    color: #999;
+}
+
+.stat{
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.status,
+.priority,
+.category{
+    border: 1px solid var(--text-color);
+    border-radius: 1rem;
+    padding: 0.4rem 1rem;
+    font-size: 0.85rem;
+}
+
+.date-time,
+.date,
+.time{
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.date-time{
+    justify-content: space-between;
+}
+
+/* card drop down */
+.drop-down-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.card-dropdown-content {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    background-color: var(--background);
+    min-width: 130px;
+    overflow: auto;
+    border-radius: 0.4rem;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+}
+
+.card-dropdown-content a {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.card-dropdown-content a:hover {
+    background-color: hsla(0, 0%, 87%, 0.5);
+}
+
+.show {
+    display: block;
+}
+
+
+/* Pagination */
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.pagination nav ul{
+    display: flex;
+    gap: 0.6rem;
+}
+
+.pagination nav ul li {
+    border: 2px solid var(--border-color);
+    border-radius: 0.4rem;
+    overflow: hidden;
+}
+
+.pagination nav ul li a {
+    display: inline-block;
+    padding: 0.6rem;
+    color: var(--text-color);
+    background-color: var(--background);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination nav ul li a:hover {
+    background-color: hsla(0, 0%, 53%, 0.2);
+    color: var(--text-color);
+}

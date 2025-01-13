@@ -29,11 +29,11 @@ public class PageController {
         return "home";
     }
 
-    @GetMapping("/about")
-    public String aboutPage(){
-        logger.info("(Controller) About page");
-        return "about";
-    }
+//    @GetMapping("/about")
+//    public String aboutPage(){
+//        logger.info("(Controller) About page");
+//        return "about";
+//    }
 
     @GetMapping("/contact")
     public String contactPage(){
