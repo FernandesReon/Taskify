@@ -7,6 +7,7 @@
     --nav-bg: rgba(249, 250, 251, 0.8);
 
     --border-color: hsla(0, 0%, 80%, 0.5);
+    --divider-line: hsl(0, 0%, 80%);
 
     --danger-color: hsla(354, 70%, 54%, 0.85);
     --success-color: hsl(134, 61%, 41%);
@@ -115,4 +116,28 @@ textarea {
     border-radius: 0.5rem;
     transition: all 0.3s ease;
     resize: none;
+}
+
+input:focus,
+textarea:focus{
+    border: 2px solid var(--accent);
+    transition: 0.3s;
+}
+
+.loader{
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--accent);
+    border-top: 2px solid var(--background);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin{
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

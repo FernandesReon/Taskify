@@ -12,7 +12,7 @@
 
             <div class="profile">
                 <div class="profile-avatar">
-                    <img th:src="loggedUser.profilePic" alt="user image">
+                    <img th:src="@{/images/Reon.png}" alt="user image">
                 </div>
                 <div class="profile-info">
                     <h2 th:text="${loggedUser.name}">Kevin Dukkon</h2>
@@ -88,7 +88,7 @@
                     <div class="card" th:each="cards : ${taskList}"
                          th:classappend="${cards.isCompleted() ? 'task-complete' : ''}">
                         <div class="card-title">
-                            <h2 th:text="${cards.title}">Implement Authentication</h2>
+                            <h2 th:text="${cards.title}"></h2>
                         </div>
 
                         <div class="card-drop_down">
@@ -128,22 +128,20 @@
                         </div>
 
                         <div class="card-desc">
-                            <p class="desc" th:text="${cards.description}">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste eius officia
-                                ipsa, deserunt deleniti obcaecati similique sequi nobis nulla, provident aperiam
-                                recusandae beatae hic consectetur dolorum voluptates, doloribus odit. Voluptatum?</p>
+                            <p class="desc" th:text="${cards.description}"></p>
                         </div>
 
                         <div class="task-state">
                             <label>Stats:</label>
                             <div class="stat">
-                                <div class="status">
-                                    <span class="task-status" th:text="${cards.status}">Pending</span>
+                                <div class="status" th:classappend="'status-' + ${cards.status.name()}">
+                                    <span class="task-status" th:text="${cards.status.name()}"></span>
                                 </div>
-                                <div class="priority">
-                                    <span class="task-priority" th:text="${cards.priority}">Medium</span>
+                                <div class="priority" th:classappend="'priority-' + ${cards.priority.name()}">
+                                    <span class="task-priority" th:text="${cards.priority.name()}"></span>
                                 </div>
-                                <div class="category">
-                                    <span class="task-category" th:text="${cards.category}">Electronics</span>
+                                <div class="category" th:classappend="'category-' + ${cards.category.name()}">
+                                    <span class="task-category" th:text="${cards.category.name()}"></span>
                                 </div>
                             </div>
                         </div>
@@ -164,7 +162,7 @@
                                     <path d="M12 18h.01" />
                                     <path d="M16 18h.01" />
                                 </svg>
-                                <span th:text="${cards.localDate}"></span>
+                                <span th:text="${#temporals.format(cards.localDate, 'dd/MM/yyyy')}"></span>
                                 <span th:if="${cards.localDate == null}" th:text="'Date Not Assigned'"></span>
                             </span>
 
@@ -179,7 +177,7 @@
                                     <path d="M17.64 18.67 20 21" />
                                     <path d="m9 13 2 2 4-4" />
                                 </svg>
-                                <span th:text="${cards.localTime}"></span>
+                                <span th:text="${#temporals.format(cards.localTime, 'hh:mm a')}"></span>
                                 <span th:if="${cards.localTime == null}" th:text="'Not Scheduled'"></span>
                             </span>
                         </div>

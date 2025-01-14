@@ -23,7 +23,8 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
     private final List<String> category = Arrays.asList(
-            "FOOD_DRINKS", "SHOPPING", "HOUSING", "BILLS", "TRANSPORT", "VEHICLE", "ELECTRONICS", "LEISURE", "OTHERS");
+            "FOOD_DRINKS", "SHOPPING", "HOUSING", "BILLS", "TRANSPORT", "VEHICLE", "ELECTRONICS", "LEISURE",
+            "TECHNOLOGY","OTHERS");
     private final List<String> status = Arrays.asList(
             "NOT_STARTED", "IN_PROGRESS", "COMPLETED", "CANCELED", "PENDING", "BLOCKED", "ARCHIVED"
     );

@@ -126,6 +126,7 @@
     padding: 0.6rem 1.25rem;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .card div{
@@ -159,7 +160,6 @@
 .status,
 .priority,
 .category{
-    border: 1px solid var(--text-color);
     border-radius: 1rem;
     padding: 0.4rem 1rem;
     font-size: 0.85rem;
@@ -239,7 +239,8 @@
 
 .pagination nav ul li a {
     display: inline-block;
-    padding: 0.6rem;
+    padding: 0.4rem;
+    font-size: 0.875rem;
     color: var(--text-color);
     background-color: var(--background);
     transition: background-color 0.3s, color 0.3s;
@@ -248,4 +249,112 @@
 .pagination nav ul li a:hover {
     background-color: hsla(0, 0%, 53%, 0.2);
     color: var(--text-color);
+}
+
+/*label colors for status*/
+.status-NOT_STARTED {
+    color: hsl(0, 0%, 10%);
+    background-color: hsl(0, 0%, 80%);
+}
+
+.status-IN_PROGRESS {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(259, 63%, 59%);
+}
+
+.status-COMPLETED {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(134, 61%, 41%);
+}
+
+.status-CANCELED{
+    color: hsl(210, 20%, 98%);
+    background-color: hsla(354, 70%, 54%, 0.85);
+}
+
+.status-PENDING {
+    color: hsl(0, 0%, 10%);
+    background-color: hsl(45, 89%, 55%);
+}
+
+.status-BLOCKED {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(0, 100%, 35%);
+}
+
+.status-ARCHIVED{
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(210, 15%, 55%);
+}
+
+/*label colors for priority*/
+.priority-CRITICAL {
+    color: hsl(210, 20%, 98%);
+    background-color: hsla(354, 70%, 54%, 0.85);
+}
+
+.priority-HIGH {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(30, 100%, 50%);
+}
+
+.priority-MEDIUM {
+    color: hsl(210, 20%, 98%);
+    background-color: #2563EB;
+}
+
+.priority-LOW {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(134, 61%, 41%);
+}
+
+/*label colors for category*/
+.category-FOOD_DRINKS {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(34, 85%, 58%);
+}
+
+.category-SHOPPING {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(300, 75%, 60%);
+}
+
+.category-HOUSING {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(210, 63%, 53%);
+}
+
+.category-BILLS {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(0, 63%, 53%);
+}
+
+.category-TRANSPORT {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(27, 87%, 50%);
+}
+
+.category-VEHICLE {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(350, 80%, 60%);
+}
+
+.category-ELECTRONICS {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(220, 80%, 50%);
+}
+
+.category-LEISURE {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(140, 70%, 40%);
+}
+
+.category-TECHNOLOGY {
+    color: hsl(210, 20%, 98%);
+    background-color: hsl(200, 80%, 45%);
+}
+
+.category-OTHERS {
+    color: hsl(0, 0%, 10%);
+    background-color: hsl(0, 0%, 70%);
 }

@@ -26,10 +26,10 @@ public class Task {
 
     private String description;
 
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate localDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime localTime;
     private boolean completed;
 
