@@ -1,3 +1,7 @@
+.auth-access{
+    padding: 3rem 0 !important;
+}
+
 .auth-access .container {
     padding: 0 4rem;
     display: flex;
@@ -33,7 +37,7 @@
 .inner-form-container p {
     font-size: 0.8rem;
     font-weight: 500;
-    color: var(--text-secondary);
+    color: #777;
 }
 
 .inner-form-container p a {

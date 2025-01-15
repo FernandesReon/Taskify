@@ -57,7 +57,7 @@ img {
 
 .container {
     width: 100%;
-    max-width: 80.35rem;
+    max-width: 85rem;
     margin: 0 auto;
     padding: 0 4rem;
     flex-wrap: wrap;
@@ -154,5 +154,11 @@ textarea:focus{
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .container{
+        padding: 0 2rem !important;
     }
 }

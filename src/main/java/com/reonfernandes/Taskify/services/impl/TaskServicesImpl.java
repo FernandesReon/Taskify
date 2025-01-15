@@ -30,9 +30,15 @@ public class TaskServicesImpl implements TaskServices {
     }
 
     @Override
-    public Page<Task> getTasksForUser(User user, int pageNo, int pageSize) {
+    public Page<Task> getTasksForUser( User user, int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
         return taskRepository.findByUser(user, pageable);
+    }
+
+    @Override
+    public Page<Task> searchTaskForUser(String query, User user, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return taskRepository.findByTitleContainingIgnoreCaseAndUser(query, user, pageable);
     }
 
 

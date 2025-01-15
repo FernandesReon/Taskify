@@ -53,9 +53,32 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginated.getTotalPages());
         model.addAttribute("totalItems", paginated.getTotalElements());
+
         model.addAttribute("taskList", taskList);
 
         return "user/dashboard";
+    }
+
+    @GetMapping("/search")
+    public String searchTasks(@RequestParam("query") String query,
+                              @RequestParam(defaultValue = "1") int page,
+                              @RequestParam(defaultValue = "6") int size,
+                              Model model) {
+        User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Page<Task> paginated = taskServices.searchTaskForUser(query, loggedInUser, page, size);
+        List<Task> taskList = paginated.getContent();
+
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", paginated.getTotalPages());
+        model.addAttribute("totalItems", paginated.getTotalElements());
+        model.addAttribute("taskList", taskList);
+        model.addAttribute("searchQuery", query);
+
+        if (query == null || query.trim().isEmpty()){
+            return "redirect:/user/dashboard";
+        }
+
+        return "user/searchResult";
     }
 
 
@@ -64,7 +87,6 @@ public class UserController {
         logger.info("(Controller) Add task page");
 
         TaskForm taskForm = new TaskForm();
-
         taskForm.setPriority(Priority.MEDIUM);
         taskForm.setStatus(Status.NOT_STARTED);
         taskForm.setCategory(Category.OTHERS);

@@ -10,6 +10,7 @@ public interface TaskServices {
     // CRUD functionalities
     Task newTask (Task task);
     Page<Task> getTasksForUser(User user, int pageNo, int pageSize);
+    Page<Task> searchTaskForUser(String query, User user, int pageNo, int pageSize);
     void updateTask(Task task, Long id);
     void deleteTask(Long id);
     void completeTask(Long id);

@@ -11,7 +11,7 @@
     <link rel="stylesheet" th:href="@{/css/global.css}">
     <link rel="stylesheet" th:href="@{/css/authforms.css}">
 
-    <title th:text="${loggedUser.getName() + '| Taskify'}">Add Task Page</title>
+    <title th:text="${loggedUser.getName() + ' | Add Task'}">Add Task Page</title>
 </head>
 <body>
 <section class="auth-access" id="auth-access">
@@ -102,9 +102,9 @@
                             <span>Create Task</span>
                             <span class="loader" style="display: none"></span>
                         </button>
-                        <button type="reset" class="button reset" style="background-color: var(--danger-color);">
-                            <span>Reset</span>
-                        </button>
+                        <a th:href="@{/user/dashboard}" type="reset" class="button reset" style="background-color: var(--danger-color);">
+                            <span>Cancel</span>
+                        </a>
                     </div>
                 </form>
             </div>

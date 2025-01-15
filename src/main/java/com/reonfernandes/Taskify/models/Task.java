@@ -70,4 +70,22 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", localDate=" + localDate +
+                ", localTime=" + localTime +
+                ", completed=" + completed +
+                ", priority=" + priority +
+                ", status=" + status +
+                ", category=" + category +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", user=" + user +
+                '}';
+    }
 }
