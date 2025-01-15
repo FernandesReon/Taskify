@@ -118,8 +118,23 @@ textarea {
     resize: none;
 }
 
+select {
+    width: 100%;
+    background-color: #f9fafb;
+    border: 2px solid var(--border-color);
+    color: var(--text-color);
+    font-size: 0.875rem;
+    border-radius: 0.4rem;
+    display: inline-block;
+    padding: 0.625rem;
+    outline: none;
+    transition: 300ms;
+}
+
 input:focus,
+select:focus,
 textarea:focus{
+    outline: none;
     border: 2px solid var(--accent);
     transition: 0.3s;
 }

@@ -100,11 +100,43 @@
 }
 
 /* task cards */
-.task-grid{
+.task-section{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2rem auto;
+}
+
+.task-section > div{
+    border-radius: 0.4rem;
+    padding: 0.6rem;
+}
+
+.col-title{
+    border-bottom: 1px solid var(--border-color);
+}
+
+.column-title{
+    font-size: 2rem;
+    color: var(--text-color);
+    margin-bottom: 0.3rem;
+}
+
+.grid{
+    margin: 1rem 0;
+}
+
+.pending-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.6rem;
+}
+
+
+.complete-task-grid{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1rem;
-    margin: 3rem auto;
+    gap: 0.6rem;
 }
 
 .task-complete{
@@ -112,6 +144,10 @@
     color: #6c757d;
     border: 1px solid #dee2e6;
     transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.task-action{
+    display: none;
 }
 
 .task-complete:hover {
@@ -138,11 +174,11 @@
 }
 
 .card-title h2{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .card-desc p{
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-align: justify;
 }
 
@@ -162,7 +198,7 @@
 .category{
     border-radius: 1rem;
     padding: 0.4rem 1rem;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
 }
 
 .date-time,
@@ -171,7 +207,7 @@
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
 }
 
 .date-time{
@@ -205,7 +241,7 @@
     gap: 0.6rem;
     padding: 0.6rem;
     color: var(--text-color);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-decoration: none;
 }
 
@@ -240,7 +276,7 @@
 .pagination nav ul li a {
     display: inline-block;
     padding: 0.4rem;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     color: var(--text-color);
     background-color: var(--background);
     transition: background-color 0.3s, color 0.3s;
