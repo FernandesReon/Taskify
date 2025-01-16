@@ -14,11 +14,18 @@
 }
 
 [data-theme="dark"] {
-    --background: hsl(0, 0%, 10%);
-    --accent: hsl(259, 63%, 59%);
-    --text-color: hsl(210, 20%, 98%);
-    --nav-bg: rgba(26, 26, 26, 0.8);
+    --background: hsl(220, 13%, 15%);
+    --accent: hsl(259, 70%, 65%);
+    --text-color: hsl(210, 20%, 90%);
+    --nav-bg: rgba(33, 33, 33, 0.9);
+
+    --border-color: hsla(0, 0%, 50%, 0.5);
+    --divider-line: hsl(0, 0%, 40%);
+
+    --danger-color: hsla(354, 80%, 62%, 0.9);
+    --success-color: hsl(134, 70%, 48%);
 }
+
 
 /* General styles */
 * {

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+      th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{:: script})}">
 <head>
     <title>Contact Page</title>
 </head>
@@ -14,32 +14,55 @@
                 <p>Have questions about managing tasks? Need help with your account or features? Reach out to us—we’re
                     here to assist you!</p>
 
-                <form action="#" method="post" class="contact-form">
+                <div class="contact-form-message" th:if="${successMessage}">
+                    <p th:text="${successMessage}"></p>
+                </div>
+
+                <form th:action="@{/sendMail}" method="post" th:object="${email}" novalidate class="contact-form">
                     <div>
-                        <label for="email">Your email</label>
-                        <input type="email" name="email" id="email" placeholder="name@company.com" autocomplete="off"
-                               required>
+                        <label for="recipient">Your email</label>
+                        <input th:field="*{recipient}"  type="email" name="recipient" id="recipient"
+                               placeholder="name@company.com" autocomplete="off" required>
+                        <span th:if="${#fields.hasErrors('recipient')}" th:errors="*{recipient}" class="error-msg"></span>
                     </div>
 
                     <div>
                         <label for="subject">Subject</label>
-                        <input type="text" name="subject" id="subject" placeholder="Let us know how we can help you"
-                               autocomplete="off" required>
+                        <input th:field="*{subject}" type="text" name="subject" id="subject"
+                               placeholder="Let us know how we can help you" autocomplete="off" required>
+                        <span th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}" class="error-msg"></span>
                     </div>
 
                     <div>
                         <label for="message">Your message</label>
-                        <textarea class="message" id="message" rows="6" placeholder="Leave a comment..."
-                                  autocomplete="off"></textarea>
+                        <textarea th:field="*{message}" class="message" id="message" rows="6"
+                                  placeholder="Leave a comment..." autocomplete="off"></textarea>
+                        <span th:if="${#fields.hasErrors('message')}" th:errors="*{message}" class="error-msg"></span>
                     </div>
 
-                    <div>
-                        <button type="submit" class="button">Send message</button>
+                    <div class="access-btn">
+                        <button type="submit" class="button">
+                            <span>Send Mail</span>
+                            <span class="loader" style="display: none"></span>
+                        </button>
                     </div>
+
                 </form>
             </div>
         </div>
     </section>
 </div>
+
+<script>
+    // To display loader when form is filled.
+    document.querySelector('.contact-form').addEventListener('submit', function (){
+        const submitButton = document.querySelector('.access-btn button[type="submit"]');
+        const loader = submitButton.querySelector('.loader');
+
+        submitButton.querySelector('span').textContent = "Sending email..";
+        loader.style.display = "inline-block";
+    });
+</script>
+
 </body>
 </html>

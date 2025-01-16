@@ -31,3 +31,14 @@
     flex-direction: column;
     gap: 2rem;
 }
+
+.contact-form-message{
+    display: block;
+    padding: 0.2rem;
+    margin: 0.2rem 0;
+    text-align: center;
+}
+
+.contact-form-message p{
+    color: var(--success-color);
+}

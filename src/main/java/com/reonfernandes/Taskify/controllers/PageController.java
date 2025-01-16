@@ -1,12 +1,17 @@
 package com.reonfernandes.Taskify.controllers;
 
 import com.reonfernandes.Taskify.forms.RegisterForm;
+import com.reonfernandes.Taskify.helper.LoggedUser;
+import com.reonfernandes.Taskify.models.Email;
 import com.reonfernandes.Taskify.models.User;
+import com.reonfernandes.Taskify.services.impl.EmailServiceImpl;
 import com.reonfernandes.Taskify.services.impl.UserServicesImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,9 +23,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class PageController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final UserServicesImpl userServices;
+    private final EmailServiceImpl emailService;
 
-    public PageController(UserServicesImpl userServices) {
+    @Value("${mail.receiver}")
+    private String emailReceiver;
+
+    public PageController(UserServicesImpl userServices, EmailServiceImpl emailService) {
         this.userServices = userServices;
+        this.emailService = emailService;
     }
 
     @GetMapping("/")
@@ -36,9 +46,30 @@ public class PageController {
 //    }
 
     @GetMapping("/contact")
-    public String contactPage(){
-        logger.info("(Controller) Contact page");
+    public String contactPage(Model model){
+        logger.info("(Controller) Contact page loaded");
+
+        Email email = new Email();
+        model.addAttribute("email", email);
         return "contact";
+    }
+
+    @PostMapping("/sendMail")
+    public String sendEmail(@Valid @ModelAttribute("email") Email email, BindingResult result, Model model){
+        logger.info("(Controller) Sending Email");
+
+        if (result.hasErrors()){
+            return "/contact";
+        }
+
+        emailService.sendEmail(emailReceiver, email.getSubject(),
+                "From: " + email.getRecipient() + "\n\n" + email.getMessage());
+
+        logger.info("Email has been sent successfully from {}", email.getRecipient());
+        model.addAttribute("successMessage", "Your message has been sent successfully!");
+        model.addAttribute("email", new Email());
+
+        return "/contact";
     }
 
     @GetMapping("/login")

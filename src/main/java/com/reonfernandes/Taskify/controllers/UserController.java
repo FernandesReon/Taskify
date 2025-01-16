@@ -53,6 +53,7 @@ public class UserController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", paginated.getTotalPages());
         model.addAttribute("totalItems", paginated.getTotalElements());
+        model.addAttribute("pageSize", size);
 
         model.addAttribute("taskList", taskList);
 
@@ -62,7 +63,7 @@ public class UserController {
     @GetMapping("/search")
     public String searchTasks(@RequestParam("query") String query,
                               @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "6") int size,
+                              @RequestParam(defaultValue = "10") int size,
                               Model model) {
         User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         Page<Task> paginated = taskServices.searchTaskForUser(query, loggedInUser, page, size);

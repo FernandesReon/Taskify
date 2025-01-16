@@ -24,7 +24,7 @@
 }
 
 .profile svg{
-    color: var(--accent);
+    color: var(--success-color);
 }
 
 /* table header */
@@ -257,6 +257,10 @@
 
 /* Pagination */
 .pagination{
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -276,16 +280,20 @@
 
 .pagination nav ul li a {
     display: inline-block;
-    padding: 0.4rem;
-    font-size: 0.8rem;
+    padding: 0.6rem;
+    font-size: 0.875rem;
     color: var(--text-color);
     background-color: var(--background);
     transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination nav ul li a:hover {
-    background-color: hsla(0, 0%, 53%, 0.2);
+    background-color: hsla(0, 2%, 69%, 0.2);
     color: var(--text-color);
+}
+
+.disable{
+    display: none;
 }
 
 /*label colors for status*/
