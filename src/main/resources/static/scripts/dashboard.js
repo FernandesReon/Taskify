@@ -1,3 +1,4 @@
+// Card dropdown
 document.addEventListener("DOMContentLoaded", () => {
     const dropdownButtons = document.querySelectorAll(".drop-down-btn");
 
@@ -30,4 +31,24 @@ document.addEventListener("DOMContentLoaded", () => {
             dropdown.classList.remove("show");
         });
     }
+});
+
+
+// Action button dropdown
+document.addEventListener("DOMContentLoaded", function () {
+    const actionBtn = document.getElementById("action-btn");
+    const actionContent = document.getElementById("action-content");
+
+    // Toggle dropdown on button click
+    actionBtn.addEventListener("click", function (event) {
+        event.stopPropagation(); // Prevent event from bubbling to document
+        actionContent.style.display = actionContent.style.display === "block" ? "none" : "block";
+    });
+
+    // Close the dropdown if clicking outside
+    document.addEventListener("click", function (event) {
+        if (!actionContent.contains(event.target) && !actionBtn.contains(event.target)) {
+            actionContent.style.display = "none";
+        }
+    });
 });

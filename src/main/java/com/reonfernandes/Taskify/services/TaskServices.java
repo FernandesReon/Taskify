@@ -15,6 +15,9 @@ public interface TaskServices {
     void deleteTask(Long id);
     void completeTask(Long id);
 
+    void deleteAllTask(Long ...id);
+    void completeAllTask(Long ...id);
+
     // Additional functionalities
     Optional<Task> getTaskById(Long id);
     Page<Task> getTasksByStatus(Status status, Pageable pageable);

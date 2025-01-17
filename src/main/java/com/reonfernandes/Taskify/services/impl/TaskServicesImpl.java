@@ -11,6 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 @Service
 public class TaskServicesImpl implements TaskServices {
@@ -74,6 +77,35 @@ public class TaskServicesImpl implements TaskServices {
         );
         toggleTask.setCompleted(!toggleTask.isCompleted());
         taskRepository.save(toggleTask);
+    }
+
+    // Delete all task logic
+    @Override
+    public void deleteAllTask(Long ...id) {
+        List<Task> deleteTasks = taskRepository.findAllById(Arrays.asList(id));
+        if (!deleteTasks.isEmpty()){
+            taskRepository.deleteAll(deleteTasks);
+            logger.info("All task are deleted.");
+        }
+        else {
+            logger.warn("No tasks found for the given IDs");
+            throw new ResourceNotFoundException("No task found for the given IDs");
+        }
+    }
+
+    // Complete all task logic
+    @Override
+    public void completeAllTask(Long ...id) {
+        List<Task> allTask = taskRepository.findAllById(Arrays.asList(id));
+        if (!allTask.isEmpty()) {
+            allTask.forEach(task -> task.setCompleted(true));
+            taskRepository.saveAll(allTask);
+            logger.info("All specified task marked as completed");
+        }
+        else {
+            logger.warn("No tasks found for the given IDs");
+            throw new ResourceNotFoundException("No task found for the given IDs");
+        }
     }
 
     @Override

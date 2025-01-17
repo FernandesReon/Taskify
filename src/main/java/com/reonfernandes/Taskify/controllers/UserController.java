@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -201,10 +203,58 @@ public class UserController {
         return "redirect:/user/dashboard";
     }
 
+    @GetMapping("/deleteAllTask")
+    public String deleteAllTask(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        List<Task> userTasks = taskServices.getTasksForUser(user, 1, Integer.MAX_VALUE).getContent();
+
+        if (!userTasks.isEmpty()){
+            List<Long> taskIdList = new ArrayList<>();
+
+            for (Task task : userTasks){
+                taskIdList.add(task.getId());
+            }
+
+            Long[] taskIds = taskIdList.toArray(new Long[taskIdList.size()]);
+            taskServices.deleteAllTask(taskIds);
+
+            logger.info("All tasks for user {} are deleted", user.getEmail());
+        }
+        else {
+            logger.warn("No tasks found for user {}", user.getEmail());
+        }
+
+        return "redirect:/user/dashboard";
+    }
+
     @GetMapping("/toggleTask/{id}")
     public String toggleTask(@PathVariable("id") Long id){
         logger.info("Task with id: " + id + " completed..");
         taskServices.completeTask(id);
+        return "redirect:/user/dashboard";
+    }
+
+    @GetMapping("/completeAllTask")
+    public String toggleAllTasks(Authentication authentication){
+        User user = (User) authentication.getPrincipal();
+        List<Task> userTasks = taskServices.getTasksForUser(user, 1, Integer.MAX_VALUE).getContent();
+
+        if (!userTasks.isEmpty()){
+            List<Long> taskIdList = new ArrayList<>();
+
+            for (Task task : userTasks){
+                taskIdList.add(task.getId());
+            }
+
+            Long[] taskIds = taskIdList.toArray(new Long[taskIdList.size()]);
+
+            taskServices.completeAllTask(taskIds);
+            logger.info("All tasks for user {} completed.", user.getEmail());
+        }
+        else {
+            logger.warn("No tasks found for user {}.", user.getEmail());
+        }
+
         return "redirect:/user/dashboard";
     }
 

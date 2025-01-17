@@ -127,7 +127,7 @@ textarea {
 
 select {
     width: 100%;
-    background-color: #f9fafb;
+    background-color: var(--background);
     border: 2px solid var(--border-color);
     color: var(--text-color);
     font-size: 0.875rem;
@@ -136,6 +136,11 @@ select {
     padding: 0.625rem;
     outline: none;
     transition: 300ms;
+}
+
+option{
+    background-color: var(--background);
+    color: var(--text-color);
 }
 
 input:focus,
