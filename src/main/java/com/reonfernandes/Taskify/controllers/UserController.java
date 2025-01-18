@@ -4,9 +4,11 @@ import com.reonfernandes.Taskify.forms.TaskForm;
 import com.reonfernandes.Taskify.models.*;
 import com.reonfernandes.Taskify.services.impl.TaskServicesImpl;
 import com.reonfernandes.Taskify.services.impl.UserServicesImpl;
+import jakarta.annotation.PostConstruct;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,11 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalTime;
+import java.util.*;
 
 @Controller
 @RequestMapping("/user")
@@ -41,8 +42,8 @@ public class UserController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboardPage(@RequestParam(defaultValue = "1") int page,
-                                @RequestParam(defaultValue = "6") int size,
+    public String dashboardPage(@RequestParam(value = "page", defaultValue = "1") int page,
+                                @RequestParam(value = "size", defaultValue = "10") int size,
                                 Model model) {
         // Fetch the logged-in user
         User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -53,10 +54,13 @@ public class UserController {
 
         // Add attributes to the model
         model.addAttribute("currentPage", page);
+
+        model.addAttribute("firstPage", paginated.isFirst());
+        model.addAttribute("lastPage", paginated.isLast());
+
         model.addAttribute("totalPages", paginated.getTotalPages());
         model.addAttribute("totalItems", paginated.getTotalElements());
         model.addAttribute("pageSize", size);
-
         model.addAttribute("taskList", taskList);
 
         return "user/dashboard";
@@ -64,8 +68,9 @@ public class UserController {
 
     @GetMapping("/search")
     public String searchTasks(@RequestParam("query") String query,
-                              @RequestParam(defaultValue = "1") int page,
-                              @RequestParam(defaultValue = "10") int size,
+                              @RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "size", defaultValue = "5") int size,
+
                               Model model) {
         User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         Page<Task> paginated = taskServices.searchTaskForUser(query, loggedInUser, page, size);

@@ -98,8 +98,7 @@
                             </a>
                         </div>
 
-
-                        <button class="button filter">
+                        <button class="button filter" id="filter-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                  class="lucide lucide-filter">
@@ -336,11 +335,22 @@
 
             <!-- Pagination -->
             <div class="pagination">
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" th:if="${totalPages > 0}">
                     <ul>
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">Next</a></li>
+                        <li th:unless="${firstPage}">
+                            <a th:href="@{/user/dashboard(page=${currentPage - 1})}">Previous</a>
+                        </li>
+
+                        <li th:each="index : ${#numbers.sequence(0, totalPages - 1)}">
+                            <a th:href="@{/user/dashboard(page=${index + 1}, size=${pageSize})}"
+                               th:text="${index + 1}"
+                               th:classappend="${index + 1 == currentPage} ? 'active-page' : ''">
+                            </a>
+                        </li>
+
+                        <li th:unless="${lastPage}">
+                            <a th:href="@{/user/dashboard(page=${currentPage + 1})}">Next</a>
+                        </li>
                     </ul>
                 </nav>
             </div>
