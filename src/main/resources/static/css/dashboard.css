@@ -279,6 +279,41 @@
 .show {
     display: block;
 }
+
+/*filter dropdown*/
+.filter-container{
+    position: absolute;
+    top: 50px;
+    right: -50px;
+    background-color: var(--background);
+    width: 150px;
+    overflow: auto;
+    border-radius: 0.4rem;
+    box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+}
+
+.filter-content{
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+    color: var(--text-color);
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+.filter-content input{
+    width:fit-content;
+}
+
+.filter-content label{
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
 add css for filter drop down
 
 /* Pagination */

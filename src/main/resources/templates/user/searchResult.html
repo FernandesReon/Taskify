@@ -246,11 +246,18 @@
 
             <!-- Pagination -->
             <div class="pagination">
-                <nav aria-label="Page navigation">
+                <nav aria-label="Page navigation" th:if="${totalPages > 0}">
                     <ul>
-                        <li><a href="#">Previous</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">Next</a></li>
+                        <li th:unless="${firstPage}">
+                            <a th:href="@{/user/searchResult(page=${currentPage - 1})}">Previous</a>
+                        </li>
+                        <li th:each="index : ${#numbers.sequence(0, totalPages - 1)}">
+                            <a th:href="@{/user/searchResult(page=${index + 1}, size=${pageSize})}"
+                               th:text="${index + 1}" th:classappend="${index + 1 == currentPage} ? 'active-page' : ''"></a>
+                        </li>
+                        <li th:unless="${lastPage}">
+                            <a th:href="@{/user/searchResult(page=${currentPage + 1})}">Next</a>
+                        </li>
                     </ul>
                 </nav>
             </div>

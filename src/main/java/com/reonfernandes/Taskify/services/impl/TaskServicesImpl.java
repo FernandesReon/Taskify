@@ -43,7 +43,6 @@ public class TaskServicesImpl implements TaskServices {
         return taskRepository.findByTitleContainingIgnoreCaseAndUser(query, user, pageable);
     }
 
-
     @Override
     public void updateTask(Task task, Long id) {
         Task updateTask = taskRepository.findById(task.getId()).orElseThrow(

@@ -106,15 +106,37 @@
                             </svg>
                             Filter
                         </button>
+
+                        <div class="filter-container" id="filter-cont">
+                            <div class="filter-content">
+                                <input type="checkbox" name="priority" id="critical">
+                                <label for="critical">Critical</label>
+                            </div>
+                            <div class="filter-content">
+                                <input type="checkbox" name="priority" id="high">
+                                <label for="high">High</label>
+                            </div>
+                            <div class="filter-content">
+                                <input type="checkbox" name="priority" id="medium">
+                                <label for="medium">Medium</label>
+                            </div>
+                            <div class="filter-content">
+                                <input type="checkbox" name="priority" id="low">
+                                <label for="low">Low</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!--Task Cards-->
             <div class="task-section">
 
                 <div class="task-grid">
                     <div class="col-title">
-                        <h1 class="column-title">Pending Task</h1>
+                        <h1 class="column-title">Pending Task
+                            <span></span>
+                        </h1>
                     </div>
 
                     <div class="pending-grid grid">

@@ -52,3 +52,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// Filter dropdown
+document.addEventListener("DOMContentLoaded", function () {
+    const filterBtn = document.getElementById("filter-btn");
+    const filterContent = document.getElementById("filter-cont");
+
+
+    filterBtn.addEventListener("click", function (event) {
+        event.stopPropagation();
+        filterContent.style.display = filterContent.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", function (event){
+        if (!filterContent.contains(event.target) && !filterBtn.contains(event.target)){
+            filterContent.style.display = "none";
+        }
+    });
+
+});

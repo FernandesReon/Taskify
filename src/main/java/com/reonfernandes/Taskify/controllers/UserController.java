@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -43,7 +44,7 @@ public class UserController {
 
     @GetMapping("/dashboard")
     public String dashboardPage(@RequestParam(value = "page", defaultValue = "1") int page,
-                                @RequestParam(value = "size", defaultValue = "10") int size,
+                                @RequestParam(value = "size", defaultValue = "6") int size,
                                 Model model) {
         // Fetch the logged-in user
         User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
@@ -61,7 +62,9 @@ public class UserController {
         model.addAttribute("totalPages", paginated.getTotalPages());
         model.addAttribute("totalItems", paginated.getTotalElements());
         model.addAttribute("pageSize", size);
+
         model.addAttribute("taskList", taskList);
+        model.addAttribute("priority", priority);
 
         return "user/dashboard";
     }
@@ -69,22 +72,27 @@ public class UserController {
     @GetMapping("/search")
     public String searchTasks(@RequestParam("query") String query,
                               @RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "size", defaultValue = "5") int size,
-
+                              @RequestParam(value = "size", defaultValue = "6") int size,
                               Model model) {
-        User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        Page<Task> paginated = taskServices.searchTaskForUser(query, loggedInUser, page, size);
-        List<Task> taskList = paginated.getContent();
-
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", paginated.getTotalPages());
-        model.addAttribute("totalItems", paginated.getTotalElements());
-        model.addAttribute("taskList", taskList);
-        model.addAttribute("searchQuery", query);
 
         if (query == null || query.trim().isEmpty()){
             return "redirect:/user/dashboard";
         }
+
+        User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        Page<Task> paginated = taskServices.searchTaskForUser(query, loggedInUser, page, size);
+        List<Task> searchTaskList = paginated.getContent();
+
+        model.addAttribute("currentPage", page);
+
+        model.addAttribute("firstPage", paginated.isFirst());
+        model.addAttribute("lastPage", paginated.isLast());
+
+        model.addAttribute("totalPages", paginated.getTotalPages());
+        model.addAttribute("totalItems", paginated.getTotalElements());
+        model.addAttribute("pageSize", size);
+        model.addAttribute("taskList", searchTaskList);
+        model.addAttribute("searchQuery", query);
 
         return "user/searchResult";
     }
