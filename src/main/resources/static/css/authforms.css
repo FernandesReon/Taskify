@@ -106,7 +106,7 @@ button[type = "submit"]{
     font-size: 0.8rem;
     font-weight: 600;
     margin: 0 1rem;
-    color: var(--text-secondary);
+    color: var(--border-color);
 }
 
 .login-form-logout-msg {

@@ -53,21 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// Filter dropdown
-document.addEventListener("DOMContentLoaded", function () {
-    const filterBtn = document.getElementById("filter-btn");
-    const filterContent = document.getElementById("filter-cont");
 
-
-    filterBtn.addEventListener("click", function (event) {
-        event.stopPropagation();
-        filterContent.style.display = filterContent.style.display === "block" ? "none" : "block";
-    });
-
-    document.addEventListener("click", function (event){
-        if (!filterContent.contains(event.target) && !filterBtn.contains(event.target)){
-            filterContent.style.display = "none";
-        }
-    });
-
+document.getElementById("filter-btn").addEventListener("click", function() {
+    let dropdown = document.getElementById("filter-dropdown");
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
 });

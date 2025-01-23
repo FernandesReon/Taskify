@@ -10,5 +10,5 @@ public enum Status {
     CANCELED,
     PENDING,
     BLOCKED,
-    ARCHIVED
+    ARCHIVED;
 }

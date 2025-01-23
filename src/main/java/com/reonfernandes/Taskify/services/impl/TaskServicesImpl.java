@@ -122,7 +122,8 @@ public class TaskServicesImpl implements TaskServices {
     }
 
     @Override
-    public Page<Task> getTasksByPriority(Priority priority, Pageable pageable) {
-        return taskRepository.findByPriority(priority, pageable);
+    public Page<Task> getTasksByPriority(User user, List<Priority> priority, int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
+        return taskRepository.findByUserAndPriority(user, priority, pageable);
     }
 }

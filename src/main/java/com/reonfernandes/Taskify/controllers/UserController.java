@@ -55,14 +55,11 @@ public class UserController {
 
         // Add attributes to the model
         model.addAttribute("currentPage", page);
-
         model.addAttribute("firstPage", paginated.isFirst());
         model.addAttribute("lastPage", paginated.isLast());
-
         model.addAttribute("totalPages", paginated.getTotalPages());
         model.addAttribute("totalItems", paginated.getTotalElements());
         model.addAttribute("pageSize", size);
-
         model.addAttribute("taskList", taskList);
         model.addAttribute("priority", priority);
 
@@ -72,8 +69,7 @@ public class UserController {
     @GetMapping("/search")
     public String searchTasks(@RequestParam("query") String query,
                               @RequestParam(value = "page", defaultValue = "1") int page,
-                              @RequestParam(value = "size", defaultValue = "6") int size,
-                              Model model) {
+                              @RequestParam(value = "size", defaultValue = "6") int size, Model model) {
 
         if (query == null || query.trim().isEmpty()){
             return "redirect:/user/dashboard";
@@ -84,19 +80,35 @@ public class UserController {
         List<Task> searchTaskList = paginated.getContent();
 
         model.addAttribute("currentPage", page);
-
-        model.addAttribute("firstPage", paginated.isFirst());
-        model.addAttribute("lastPage", paginated.isLast());
-
+        model.addAttribute("firstPage", page == 1);
+        model.addAttribute("lastPage", page == paginated.getTotalPages());
         model.addAttribute("totalPages", paginated.getTotalPages());
         model.addAttribute("totalItems", paginated.getTotalElements());
         model.addAttribute("pageSize", size);
         model.addAttribute("taskList", searchTaskList);
         model.addAttribute("searchQuery", query);
 
-        return "user/searchResult";
+        return "/user/searchResult";
     }
 
+    @GetMapping("/filter")
+    public String filterTaskByPriority(@RequestParam(value = "priority", required = false) List<Priority> priorities,
+                                       @RequestParam(value = "page", defaultValue = "1") int pageNo,
+                                       @RequestParam(value = "size", defaultValue = "6") int pageSize,
+                                       Model model){
+
+        User loggedInUser = userServices.getUserByEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if (priorities == null || priorities.isEmpty()){
+            Page<Task> allTasks = taskServices.getTasksForUser(loggedInUser, pageNo, pageSize);
+            model.addAttribute("filtered_task", allTasks.getContent());
+            return "/user/dashboard";
+        }
+
+        Page<Task> filteredTasks = taskServices.getTasksByPriority(loggedInUser, priorities, pageNo, pageSize);
+        model.addAttribute("filtered_task", filteredTasks.getContent());
+
+        return "/user/filtered-task";
+    }
 
     @GetMapping("/addTask")
     public String addTaskPage(Model model){
@@ -108,7 +120,6 @@ public class UserController {
         taskForm.setCategory(Category.OTHERS);
 
         model.addAttribute("taskForm", taskForm);
-
         model.addAttribute("category", category);
         model.addAttribute("status", status);
         model.addAttribute("priority", priority);

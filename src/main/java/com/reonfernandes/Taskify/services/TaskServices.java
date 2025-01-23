@@ -24,6 +24,6 @@ public interface TaskServices {
     Optional<Task> getTaskById(Long id);
     Page<Task> getTasksByStatus(Status status, Pageable pageable);
     Page<Task> getTasksByCategory(Category category, Pageable pageable);
-    Page<Task> getTasksByPriority(Priority priority, Pageable pageable);
+    Page<Task> getTasksByPriority(User user, List<Priority> priority, int pageNo, int pageSize);
 
 }

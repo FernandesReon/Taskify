@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{})}">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base :: parent(~{:: #content}, ~{:: title}, ~{:: script})}">
 
 <head>
     <title th:text="${loggedUser.name} + ' | Dashboard'"></title>
@@ -98,37 +98,42 @@
                             </a>
                         </div>
 
+<!--                        filter button-->
                         <button class="button filter" id="filter-btn">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                 class="lucide lucide-filter">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" class="lucide lucide-filter">
                                 <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                             </svg>
                             Filter
                         </button>
 
-                        <div class="filter-container" id="filter-cont">
-                            <div class="filter-content">
-                                <input type="checkbox" name="priority" id="critical">
-                                <label for="critical">Critical</label>
-                            </div>
-                            <div class="filter-content">
-                                <input type="checkbox" name="priority" id="high">
-                                <label for="high">High</label>
-                            </div>
-                            <div class="filter-content">
-                                <input type="checkbox" name="priority" id="medium">
-                                <label for="medium">Medium</label>
-                            </div>
-                            <div class="filter-content">
-                                <input type="checkbox" name="priority" id="low">
-                                <label for="low">Low</label>
-                            </div>
+                        <div class="filter-container" id="filter-dropdown" style="display: none;">
+                            <form id="filter-form" method="GET" th:action="@{/user/filter}">
+                                <label>Select your Priority:</label>
+                                <label>
+                                    <select name="priority">
+                                        <option value="" disabled selected>None</option>
+                                        <option value="CRITICAL">Critical</option>
+                                        <option value="HIGH">High</option>
+                                        <option value="MEDIUM">Medium</option>
+                                        <option value="LOW">Low</option>
+                                    </select>
+                                </label>
+                                <button type="submit" class="button filter" th:unless="${priority == null}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" class="lucide lucide-circle-check-big">
+                                        <path d="M21.801 10A10 10 0 1 1 17 3.335" />
+                                        <path d="m9 11 3 3L22 4" />
+                                    </svg>
+                                    Apply Filter</button>
+                            </form>
                         </div>
+
                     </div>
                 </div>
             </div>
-
             <!--Task Cards-->
             <div class="task-section">
 
@@ -380,6 +385,17 @@
         </div>
     </section>
 </div>
+
+<script>
+    document.getElementById('filter-form').addEventListener('submit', function(event) {
+        const priority = document.querySelector('select[name="priority"]').value;
+        if (!priority) {
+            event.preventDefault(); // Stop form submission
+            window.location.href = "/user/dashboard"; // Redirect to dashboard
+        }
+    });
+</script>
+
 
 </body>
 
